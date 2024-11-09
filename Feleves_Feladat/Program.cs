@@ -55,7 +55,120 @@ namespace Feleves_Feladat
                     return true;
             }
         }
+        //lekérdekérdezés almenü
+        private static bool LekerdezesekAlmenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Vezető lekérdezések");
+            Console.WriteLine("1) Hány doktori címmel rendelkező vezető(manager) van?");
+            Console.WriteLine("2) Van - e olyan(és ha igen ki / kik) akik doktori címmel rendelkeznek, de MBA(Master of Business Administration) végzettségük nincs?");
+            Console.WriteLine("3) Ki a legrégebb óta munkában lévő vezető?");
+            Console.WriteLine("4) Melyik az a vezető, aki az élt éveihez képest a legtöbb ideje dolgozik a cégnél?");
+            Console.WriteLine("5) Mi a vezetők közötti arány, hány embernek van MBA végzettsége, szemben azokkal akiknek nincs?");
+            Console.WriteLine("\nAlkalmazott lekérdezések");
+            Console.WriteLine("6) Hány alkalmazott van, akik a 80 -as években születtek?");
+            Console.WriteLine("7) Hány alkalmazott van, akik legalább két részlegen dolgoznak?");
+            Console.WriteLine("8) Melyik alkalmazottak azok akik jelenleg nyugdíjba mentek de mégis dolgoznak?");
+            Console.WriteLine("9) Hány alkalmazott van akik nyugdíjba mentek és ennek megfelelően nem dolgoznak?");
+            Console.WriteLine("10) Mennyit keresnek átlagosan azok, akik már nyugdíjba mentek?");
+            Console.WriteLine("11) Keresetük alapján(jutalékot is beleértve) csökkenő sorrendben kik dolgoznak itt?");
+            Console.WriteLine("12) Tudásszintjük alapján(junior, medior, senior) a dolgozók milyen összetételben dolgoznak a cégnél(100 % az összes dolgozó) ?");
+            Console.WriteLine("13) Melyek azok a dolgozók, akik olyan részleghez tartoznak ahol van doktori címmel rendelkező részlegvezető?");
+            Console.WriteLine("14) Hány olyan dolgozó van, akiknek a fizetése meghaladja az átlagos fizetési szintet; illetve hány van akik ez alatt keresnek(a jutalékot nem számolva) ?");
+            Console.WriteLine("15) Mi az átlagfizetés(jutalékot nem nézve) az egyes szintekben?");
+            Console.WriteLine("16) Ki keres többet a jelenlegi dolgozók közül: aki medior szinten átlagfizetést kap vagy egy junior aki a legmagasabb fizetést kapja?");
+            Console.WriteLine("17) Melyik kategóriában(junior, medior, senior) a legtöbb a jutalék mértéke?");
+            Console.WriteLine("18) Melyik alkalmazott az, aki az itt töltött éveihez képest a legkevesebb projekten dolgozott?");
+            Console.WriteLine("19) Születési sorrendben ki mennyit keres?");
+            Console.WriteLine("20) A jelenleg aktív státuszban itt dolgozó alkalmazottak közül ki dolgozott a legkevesebb projekten?");
+            Console.WriteLine("21) Van-e olyan eset, ahol egy dolgozónak a jutaléka nagyobb, mint egy másik dolgozó alap fizetése? Ha igen, melyik kié ?");
+            Console.WriteLine("\nVegyes lekérdezések");
+            Console.WriteLine("22) Ki dolgozik a legrégebb óta a cégnél? Vezetők és alkalmazottakat közösen nézve.");
+            Console.WriteLine("23) Van-e olyan manager aki egyben részlegvezető is? Ha igen, ki az?");
+            Console.WriteLine("24) Kik azok, akik vagy csak részlegvezetők, vagy csak manager-ek ?");
+            Console.WriteLine("25) Visszalépés a menübe");
+            Console.Write("\r\nVálasztott menüpont száma: ");
 
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "2":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "3":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "4":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "5":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "6":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "7":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "8":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "9":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "10":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "11":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "12":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "13":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "14":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "15":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "16":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "17":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "18":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "19":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "20":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "21":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "22":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "23":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "24":
+                    //lekérdezés megvalósítása
+                    return true;
+                case "25":
+                    return false;
+                default:
+                    return true;
+            }
+        }
         private static void AdatImportXML()
         {
             Console.WriteLine("Adatimport XML");
@@ -79,6 +192,11 @@ namespace Feleves_Feladat
         private static void Lekérdezések()
         {
             Console.WriteLine("Válassz egy lekérdezést:");
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = LekerdezesekAlmenu();
+            }
 
         }
     }
