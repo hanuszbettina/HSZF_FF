@@ -24,6 +24,10 @@ namespace Feleves_Feladat.Models
         public int Salary { get; set; }
         public int Commission { get; set; }
         public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
+        public override string ToString()
+        {
+            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nBizottság: {Departments.ToString}";
+        }
 
     }
 }

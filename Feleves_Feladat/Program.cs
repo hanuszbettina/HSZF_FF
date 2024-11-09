@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.Metrics;
+﻿using Feleves_Feladat.Models;
+using Newtonsoft.Json;
+using System;
+using System.Diagnostics.Metrics;
 using System.Xml.Linq;
 
 namespace Feleves_Feladat
@@ -171,30 +174,22 @@ namespace Feleves_Feladat
         }
         private static void AdatImportXML()
         {
-            bool showMenu = true;
             Console.Clear();
-            Console.WriteLine("XML-ből impoortált adatok:");
+            Console.WriteLine("XML-ből importált adatok:\n");
             var xml = XDocument.Load("employees-departments.xml"); 
             foreach (var item in xml.Element("Employees")!.Elements("Employee")) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
                 Console.WriteLine(item.Element("Name")?.Value);
             }
             Console.WriteLine("\n0, Visszalépés a menübe");
-            while (showMenu)
-            {
-                if (Console.ReadLine() == "0")
-                {
-                    showMenu = false;
-                }
-                else
-                { 
-                    Console.WriteLine("Nem megfelelő gombot nyomott!"); 
-                }
-            }
+            VisszaLépés();
         }
         private static void AdatImportJSON()
         {
-            Console.WriteLine("Adatimport JSON");
+            Console.Clear();
+            Console.WriteLine("JSON-ből importált adatok:\n");
+            
+            
         }
         private static void AdatExport()
         {
@@ -217,6 +212,21 @@ namespace Feleves_Feladat
                 showMenu = LekerdezesekAlmenu();
             }
 
+        }
+        private static void VisszaLépés()
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                if (Console.ReadLine() == "0")
+                {
+                    showMenu = false;
+                }
+                else
+                {
+                    Console.WriteLine("Nem megfelelő gombot nyomott!");
+                }
+            }
         }
     }
 }
