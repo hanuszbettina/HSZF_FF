@@ -86,7 +86,7 @@ namespace Feleves_Feladat
             Console.WriteLine("22) Ki dolgozik a legrégebb óta a cégnél? Vezetők és alkalmazottakat közösen nézve.");
             Console.WriteLine("23) Van-e olyan manager aki egyben részlegvezető is? Ha igen, ki az?");
             Console.WriteLine("24) Kik azok, akik vagy csak részlegvezetők, vagy csak manager-ek ?");
-            Console.WriteLine("25) Visszalépés a menübe");
+            Console.WriteLine("\n0) Visszalépés a menübe");
             Console.Write("\r\nVálasztott menüpont száma: ");
 
             switch (Console.ReadLine())
@@ -163,7 +163,7 @@ namespace Feleves_Feladat
                 case "24":
                     //lekérdezés megvalósítása
                     return true;
-                case "25":
+                case "0":
                     return false;
                 default:
                     return true;
@@ -171,7 +171,26 @@ namespace Feleves_Feladat
         }
         private static void AdatImportXML()
         {
-            Console.WriteLine("Adatimport XML");
+            bool showMenu = true;
+            Console.Clear();
+            Console.WriteLine("XML-ből impoortált adatok:");
+            var xml = XDocument.Load("employees-departments.xml"); 
+            foreach (var item in xml.Element("Employees")!.Elements("Employee")) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
+            {
+                Console.WriteLine(item.Element("Name")?.Value);
+            }
+            Console.WriteLine("\n0, Visszalépés a menübe");
+            while (showMenu)
+            {
+                if (Console.ReadLine() == "0")
+                {
+                    showMenu = false;
+                }
+                else
+                { 
+                    Console.WriteLine("Nem megfelelő gombot nyomott!"); 
+                }
+            }
         }
         private static void AdatImportJSON()
         {
