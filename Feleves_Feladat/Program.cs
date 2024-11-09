@@ -188,8 +188,17 @@ namespace Feleves_Feladat
         {
             Console.Clear();
             Console.WriteLine("JSON-ből importált adatok:\n");
-            
-            
+            var jsondata = File.ReadAllText("managers.json");
+            var managers = JsonConvert
+                .DeserializeObject<List<Manager>>(jsondata);
+
+            foreach (var item in managers!) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
+            {
+                Console.WriteLine(item.ToString() + "\n");
+            }
+            Console.WriteLine("\n0, Visszalépés a menübe");
+            VisszaLépés();
+
         }
         private static void AdatExport()
         {
