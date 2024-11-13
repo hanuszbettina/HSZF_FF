@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.Metrics;
+using System.Net;
 using System.Xml.Linq;
 
 namespace Feleves_Feladat
@@ -15,7 +16,6 @@ namespace Feleves_Feladat
             {
                 showMenu = MainMenu();
             }
-
         }
 
         //alap menü
@@ -182,10 +182,15 @@ namespace Feleves_Feladat
                 Console.WriteLine(item.Element("Name")?.Value);
             }
             Console.WriteLine("\n0, Visszalépés a menübe");
-            VisszaLépés();
+            VisszaLepesAFoMenube();
         }
         private static void AdatImportJSON()
         {
+            //letölti a linken található doksit
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile("https://nik.siposm.hu/db/managers.json", @"C:\Users\User\Desktop\Féléves Feladat\Feleves_Feladat\Feleves_Feladat\bin\Debug\net8.0\managers.json");
             Console.Clear();
             Console.WriteLine("JSON-ből importált adatok:\n");
             var jsondata = File.ReadAllText("managers.json");
@@ -197,7 +202,7 @@ namespace Feleves_Feladat
                 Console.WriteLine(item.ToString() + "\n");
             }
             Console.WriteLine("\n0, Visszalépés a menübe");
-            VisszaLépés();
+            VisszaLepesAFoMenube();
 
         }
         private static void AdatExport()
@@ -220,9 +225,8 @@ namespace Feleves_Feladat
             {
                 showMenu = LekerdezesekAlmenu();
             }
-
         }
-        private static void VisszaLépés()
+        private static void VisszaLepesAFoMenube()
         {
             bool showMenu = true;
             while (showMenu)

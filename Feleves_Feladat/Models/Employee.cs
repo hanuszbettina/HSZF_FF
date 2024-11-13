@@ -26,7 +26,7 @@ namespace Feleves_Feladat.Models
         public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
         public override string ToString()
         {
-            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nBizottság: {Departments.ToString}";
+            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nBizottság: {Commission}\nRészlegek: {Departments.ToString}";
         }
 
     }
