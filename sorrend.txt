@@ -1,0 +1,7 @@
+xml eur to huf
+datas to database
+xml+json upload database
+adat export (reflexiós cucc)
+crud
+lekérdezések
+grafikon

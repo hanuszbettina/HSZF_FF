@@ -176,10 +176,26 @@ namespace Feleves_Feladat
         {
             Console.Clear();
             Console.WriteLine("XML-ből importált adatok:\n");
-            var xml = XDocument.Load("employees-departments.xml"); 
+            var xml = XDocument.Load("employees-departments.xml");
+            //eur to huf
+            foreach (var elem in xml.Descendants("Commission"))
+            {
+                XAttribute currency = elem.Attribute("currency");
+                if(currency != null)
+                {
+                    if (currency.Value == "eur")
+                    {
+                        //Euró az attributum
+                        int ertekint=Convert.ToInt32(elem.Value) *400;
+                        elem.Value = Convert.ToString(ertekint);
+                    }
+                }
+            }
             foreach (var item in xml.Element("Employees")!.Elements("Employee")) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
                 Console.WriteLine(item.Element("Name")?.Value);
+                
+                Console.WriteLine(item.Element("Commission")?.Value);
             }
             Console.WriteLine("\n0, Visszalépés a menübe");
             VisszaLepesAFoMenube();

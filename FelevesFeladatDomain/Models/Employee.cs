@@ -11,6 +11,7 @@ namespace Feleves_Feladat.Models
 {
     public class Employee
     {
+        public int Id { get; set; }
         public string? Name { get; set; }
         public int BirthYear { get; set; }
         public int StartYear { get; set; }
@@ -22,11 +23,12 @@ namespace Feleves_Feladat.Models
         public string? Job { get; set; }
         public string? Level { get; set; }
         public int Salary { get; set; }
-        public int Commission { get; set; }
+        public int Commission { get; set; } //juttatás eur to huf
         public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
+        
         public override string ToString()
         {
-            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nBizottság: {Commission}\nRészlegek: {Departments.ToString}";
+            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nBizottság: {Commission} HUF\nRészlegek: {Departments.ToString}";
         }
 
     }
