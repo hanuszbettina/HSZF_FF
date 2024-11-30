@@ -25,7 +25,13 @@ namespace FelevesFeladatInfrastructure
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Employee>()
+                .HasMany(m => m.Departments)
+                .WithOne(r => r.Employeecon);
+            modelBuilder.Entity<Manager>()
+                .HasMany(m => m.Departments)
+                .WithOne(r => r.Managercon)
+                .HasForeignKey(r => r.Name);
         }
     }
 }
