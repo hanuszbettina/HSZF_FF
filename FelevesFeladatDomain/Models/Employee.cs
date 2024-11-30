@@ -12,29 +12,29 @@ namespace Feleves_Feladat.Models
 {
     public class Employee
     {
-        public Employee(string id)
-        {
-            Id = id;
-            Departments = new HashSet<Department>();
-        }
+        //public Employee(string id)
+        //{
+        //    Id = id;
+        //    Departments = new HashSet<Department>();
+        //}
 
-        public Employee(string id, string? name, int birthYear, int startYear, int completedProjects, bool active, bool retired, string? email, string? phone, string? job, string? level, int salary, int commission)
-        {
-            Id = id;
-            Name = name;
-            BirthYear = birthYear;
-            StartYear = startYear;
-            CompletedProjects = completedProjects;
-            Active = active;
-            Retired = retired;
-            Email = email;
-            Phone = phone;
-            Job = job;
-            Level = level;
-            Salary = salary;
-            Commission = commission;
-            Departments = new HashSet<Department>();
-        }
+        //public Employee(string id, string? name, int birthYear, int startYear, int completedProjects, bool active, bool retired, string? email, string? phone, string? job, string? level, int salary, int commission)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    BirthYear = birthYear;
+        //    StartYear = startYear;
+        //    CompletedProjects = completedProjects;
+        //    Active = active;
+        //    Retired = retired;
+        //    Email = email;
+        //    Phone = phone;
+        //    Job = job;
+        //    Level = level;
+        //    Salary = salary;
+        //    Commission = commission;
+        //    Departments = new HashSet<Department>();
+        //}
 
         [Key]
         [Required]
@@ -60,7 +60,7 @@ namespace Feleves_Feladat.Models
         
         public override string ToString()
         {
-            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nBizottság: {Commission} HUF\nRészlegek: {Departments.ToString}";
+            return $"Név: {Name}\nSzületési év: {BirthYear}\nKezdés éve: {StartYear}\nTeljesített projektek: {CompletedProjects}\nAktív: {Active}\nNyugdíjas: {Retired}\nEmail: {Email}\nMunka: {Job}\nSzint: {Level}\nFizetés: {Salary}\nJuttatás: {Commission} HUF\nRészlegek: {Departments.ToString}";
         }
 
     }

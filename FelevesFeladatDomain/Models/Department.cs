@@ -11,16 +11,16 @@ namespace Feleves_Feladat.Models
 {
     public class Department
     {
-        public Department()
-        {
-        }
+        //public Department()
+        //{
+        //}
 
-        public Department(string? name, string? departmentCode, string? headOfDepartment)
-        {
-            Name = name;
-            DepartmentCode = departmentCode;
-            HeadOfDepartment = headOfDepartment;
-        }
+        //public Department(string? name, string? departmentCode, string? headOfDepartment)
+        //{
+        //    Name = name;
+        //    DepartmentCode = departmentCode;
+        //    HeadOfDepartment = headOfDepartment;
+        //}
         [StringLength(100)]
         public string? Name { get; set; }
         [Key]

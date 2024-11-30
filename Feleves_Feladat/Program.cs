@@ -3,7 +3,9 @@ using Newtonsoft.Json;
 using System;
 using System.Diagnostics.Metrics;
 using System.Net;
+using System.Runtime.Intrinsics.Arm;
 using System.Xml.Linq;
+using static Azure.Core.HttpHeader;
 
 namespace Feleves_Feladat
 {
@@ -193,9 +195,25 @@ namespace Feleves_Feladat
             }
             foreach (var item in xml.Element("Employees")!.Elements("Employee")) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
-                Console.WriteLine(item.Element("Name")?.Value);
-                
-                Console.WriteLine(item.Element("Commission")?.Value);
+                    Console.WriteLine($"Név: {item.Element("Name")?.Value}");
+                    Console.WriteLine($"Születési év: {item.Element("BirthYear")?.Value}");
+                    Console.WriteLine($"Kezdés éve: {item.Element("StartYear")?.Value}");
+                    Console.WriteLine($"Teljesített projektek: {item.Element("CompletedProjects")?.Value}");
+                    Console.WriteLine($"Aktív: {item.Element("Active")?.Value}");
+                    Console.WriteLine($"Nyugdíjas: {item.Element("Retired")?.Value}");
+                    Console.WriteLine($"Email: {item.Element("Email")?.Value}");
+                    Console.WriteLine($"Munka: {item.Element("Job")?.Value}");
+                    Console.WriteLine($"Szint: {item.Element("Level")?.Value}");
+                    Console.WriteLine($"Fizetés: {item.Element("Salary")?.Value}");
+                    Console.WriteLine($"Juttatás: {item.Element("Commission")?.Value}");
+                    Console.WriteLine($"Részlegek:");
+                    foreach (var dep in item.Elements("Departments").Elements("Department"))
+                    {
+                        Console.WriteLine($"\tNév: {dep.Element("Name")?.Value}");
+                        Console.WriteLine($"\tOsztály kód: {dep.Element("DepartmentCode")?.Value}");
+                        Console.WriteLine($"\tVezető: {dep.Element("HeadOfDepartment")?.Value}\n");
+                    }
+                Console.WriteLine();
             }
             Console.WriteLine("\n0, Visszalépés a menübe");
             VisszaLepesAFoMenube();

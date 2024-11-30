@@ -11,6 +11,14 @@ namespace FelevesFeladatInfrastructure
     
     public class Repository
     {
+        private readonly EmployeeDbContext _context;
+
+
+        public Repository(EmployeeDbContext ctx)
+        {
+            this._context = ctx;
+        }
+
         
     }
 }
