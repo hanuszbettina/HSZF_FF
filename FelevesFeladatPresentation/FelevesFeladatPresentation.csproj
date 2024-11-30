@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FelevesFeladatDomain\FelevesFeladatDomain.csproj" />
     <ProjectReference Include="..\FelevesFeladatInfrastructure\FelevesFeladatInfrastructure.csproj" />
   </ItemGroup>
