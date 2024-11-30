@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FelevesFeladatDomain.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Feleves_Feladat.Models
 {
+    [ToExport("Department")]
     public class Department
     {
         //public Department()
@@ -29,7 +31,7 @@ namespace Feleves_Feladat.Models
         [StringLength(100)]
         public string? HeadOfDepartment { get; set; }
 
-        public virtual Employee? Employeecon { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; }
         public virtual Manager? Managercon { get; set; }
 
 

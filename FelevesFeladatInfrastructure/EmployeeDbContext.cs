@@ -27,7 +27,7 @@ namespace FelevesFeladatInfrastructure
         {
             modelBuilder.Entity<Employee>()
                 .HasMany(m => m.Departments)
-                .WithOne(r => r.Employeecon);
+                .WithMany(r => r.Employees);
             modelBuilder.Entity<Manager>()
                 .HasMany(m => m.Departments)
                 .WithOne(r => r.Managercon)

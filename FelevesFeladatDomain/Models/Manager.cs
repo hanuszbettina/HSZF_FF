@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FelevesFeladatDomain.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Feleves_Feladat.Models
 {
+    [ToExport("Manager")]
     public class Manager
     {
         //public Manager()

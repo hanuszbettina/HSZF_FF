@@ -55,17 +55,11 @@ namespace FelevesFeladatInfrastructure.Migrations
                 {
                     DepartmentCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    HeadOfDepartment = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    EmployeeconId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    HeadOfDepartment = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DepartmentsDb", x => x.DepartmentCode);
-                    table.ForeignKey(
-                        name: "FK_DepartmentsDb_EmployeesDb_EmployeeconId",
-                        column: x => x.EmployeeconId,
-                        principalTable: "EmployeesDb",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_DepartmentsDb_ManagersDb_Name",
                         column: x => x.Name,
@@ -73,10 +67,34 @@ namespace FelevesFeladatInfrastructure.Migrations
                         principalColumn: "ManagerId");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DepartmentEmployee",
+                columns: table => new
+                {
+                    DepartmentsDepartmentCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmployeesId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DepartmentEmployee", x => new { x.DepartmentsDepartmentCode, x.EmployeesId });
+                    table.ForeignKey(
+                        name: "FK_DepartmentEmployee_DepartmentsDb_DepartmentsDepartmentCode",
+                        column: x => x.DepartmentsDepartmentCode,
+                        principalTable: "DepartmentsDb",
+                        principalColumn: "DepartmentCode",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DepartmentEmployee_EmployeesDb_EmployeesId",
+                        column: x => x.EmployeesId,
+                        principalTable: "EmployeesDb",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_DepartmentsDb_EmployeeconId",
-                table: "DepartmentsDb",
-                column: "EmployeeconId");
+                name: "IX_DepartmentEmployee_EmployeesId",
+                table: "DepartmentEmployee",
+                column: "EmployeesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DepartmentsDb_Name",
@@ -87,6 +105,9 @@ namespace FelevesFeladatInfrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "DepartmentEmployee");
+
             migrationBuilder.DropTable(
                 name: "DepartmentsDb");
 

@@ -22,12 +22,24 @@ namespace FelevesFeladatInfrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DepartmentEmployee", b =>
+                {
+                    b.Property<string>("DepartmentsDepartmentCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("EmployeesId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("DepartmentsDepartmentCode", "EmployeesId");
+
+                    b.HasIndex("EmployeesId");
+
+                    b.ToTable("DepartmentEmployee");
+                });
+
             modelBuilder.Entity("Feleves_Feladat.Models.Department", b =>
                 {
                     b.Property<string>("DepartmentCode")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("EmployeeconId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("HeadOfDepartment")
@@ -39,8 +51,6 @@ namespace FelevesFeladatInfrastructure.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("DepartmentCode");
-
-                    b.HasIndex("EmployeeconId");
 
                     b.HasIndex("Name");
 
@@ -121,24 +131,28 @@ namespace FelevesFeladatInfrastructure.Migrations
                     b.ToTable("ManagersDb");
                 });
 
+            modelBuilder.Entity("DepartmentEmployee", b =>
+                {
+                    b.HasOne("Feleves_Feladat.Models.Department", null)
+                        .WithMany()
+                        .HasForeignKey("DepartmentsDepartmentCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Feleves_Feladat.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Feleves_Feladat.Models.Department", b =>
                 {
-                    b.HasOne("Feleves_Feladat.Models.Employee", "Employeecon")
-                        .WithMany("Departments")
-                        .HasForeignKey("EmployeeconId");
-
                     b.HasOne("Feleves_Feladat.Models.Manager", "Managercon")
                         .WithMany("Departments")
                         .HasForeignKey("Name");
 
-                    b.Navigation("Employeecon");
-
                     b.Navigation("Managercon");
-                });
-
-            modelBuilder.Entity("Feleves_Feladat.Models.Employee", b =>
-                {
-                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Feleves_Feladat.Models.Manager", b =>

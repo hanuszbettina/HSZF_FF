@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FelevesFeladatDomain.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Xml.Linq;
 
 namespace Feleves_Feladat.Models
 {
+    [ToExport("Employee")]
     public class Employee
     {
         //public Employee(string id)

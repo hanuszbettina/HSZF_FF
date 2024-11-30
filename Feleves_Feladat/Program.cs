@@ -1,8 +1,11 @@
 ﻿using Feleves_Feladat.Models;
+using FelevesFeladatDomain;
+using FelevesFeladatDomain.Attributes;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.Metrics;
 using System.Net;
+using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Xml.Linq;
 using static Azure.Core.HttpHeader;
@@ -183,39 +186,39 @@ namespace Feleves_Feladat
             foreach (var elem in xml.Descendants("Commission"))
             {
                 XAttribute currency = elem.Attribute("currency");
-                if(currency != null)
+                if (currency != null)
                 {
                     if (currency.Value == "eur")
                     {
                         //Euró az attributum
-                        int ertekint=Convert.ToInt32(elem.Value) *400;
+                        int ertekint = Convert.ToInt32(elem.Value) * 400;
                         elem.Value = Convert.ToString(ertekint);
                     }
                 }
             }
             foreach (var item in xml.Element("Employees")!.Elements("Employee")) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
-                    Console.WriteLine($"Név: {item.Element("Name")?.Value}");
-                    Console.WriteLine($"Születési év: {item.Element("BirthYear")?.Value}");
-                    Console.WriteLine($"Kezdés éve: {item.Element("StartYear")?.Value}");
-                    Console.WriteLine($"Teljesített projektek: {item.Element("CompletedProjects")?.Value}");
-                    Console.WriteLine($"Aktív: {item.Element("Active")?.Value}");
-                    Console.WriteLine($"Nyugdíjas: {item.Element("Retired")?.Value}");
-                    Console.WriteLine($"Email: {item.Element("Email")?.Value}");
-                    Console.WriteLine($"Munka: {item.Element("Job")?.Value}");
-                    Console.WriteLine($"Szint: {item.Element("Level")?.Value}");
-                    Console.WriteLine($"Fizetés: {item.Element("Salary")?.Value}");
-                    Console.WriteLine($"Juttatás: {item.Element("Commission")?.Value}");
-                    Console.WriteLine($"Részlegek:");
-                    foreach (var dep in item.Elements("Departments").Elements("Department"))
-                    {
-                        Console.WriteLine($"\tNév: {dep.Element("Name")?.Value}");
-                        Console.WriteLine($"\tOsztály kód: {dep.Element("DepartmentCode")?.Value}");
-                        Console.WriteLine($"\tVezető: {dep.Element("HeadOfDepartment")?.Value}\n");
-                    }
-                Console.WriteLine();
+                Console.WriteLine($"Név: {item.Element("Name")?.Value}");
+                Console.WriteLine($"Születési év: {item.Element("BirthYear")?.Value}");
+                Console.WriteLine($"Kezdés éve: {item.Element("StartYear")?.Value}");
+                Console.WriteLine($"Teljesített projektek: {item.Element("CompletedProjects")?.Value}");
+                Console.WriteLine($"Aktív: {item.Element("Active")?.Value}");
+                Console.WriteLine($"Nyugdíjas: {item.Element("Retired")?.Value}");
+                Console.WriteLine($"Email: {item.Element("Email")?.Value}");
+                Console.WriteLine($"Munka: {item.Element("Job")?.Value}");
+                Console.WriteLine($"Szint: {item.Element("Level")?.Value}");
+                Console.WriteLine($"Fizetés: {item.Element("Salary")?.Value}");
+                Console.WriteLine($"Juttatás: {item.Element("Commission")?.Value}");
+                Console.WriteLine($"Részlegek:");
+                foreach (var dep in item.Elements("Departments").Elements("Department"))
+                {
+                    Console.WriteLine($"\n\tNév: {dep.Element("Name")?.Value}");
+                    Console.WriteLine($"\tOsztály kód: {dep.Element("DepartmentCode")?.Value}");
+                    Console.WriteLine($"\tVezető: {dep.Element("HeadOfDepartment")?.Value}");
+                    Console.WriteLine();
+                }
             }
-            Console.WriteLine("\n0, Visszalépés a menübe");
+            Console.WriteLine("0, Visszalépés a menübe");
             VisszaLepesAFoMenube();
         }
         private static void AdatImportJSON()
@@ -241,9 +244,18 @@ namespace Feleves_Feladat
         }
         private static void AdatExport()
         {
+            Console.Clear();
             Console.WriteLine("Adatexport");
+            Console.WriteLine("Az alábbi osztálytályok (Department, Employee, Manager) exportálása xml fájlba.");
+            DataFetcher df = new DataFetcher();
+            df.FetchDataFromProgram();
+
+            Console.WriteLine("\n0, Visszalépés a menübe");
+            VisszaLepesAFoMenube();
         }
-        private static void CRUD()
+        
+    
+    private static void CRUD()
         {
             Console.WriteLine("CRUD");
         }
