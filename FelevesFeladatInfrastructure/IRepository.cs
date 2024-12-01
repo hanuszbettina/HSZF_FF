@@ -21,5 +21,8 @@ namespace FelevesFeladatInfrastructure
         void EmployeeDeleteById(string id);
         void DepartmentDeleteById(string id);
         void ManagerDeleteById(string id);
+        void AddEmployee(Employee emp);
+        void AddDepartment(Department dep);
+        void AddManager(Manager manager);
     }
 }

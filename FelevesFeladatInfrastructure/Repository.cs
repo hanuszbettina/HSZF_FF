@@ -88,6 +88,47 @@ namespace FelevesFeladatInfrastructure
             ctx.Managers.Remove(manIdDel);
             ctx.SaveChanges();
         }
+        //Hozzáadás adatbázishoz
+        public void AddEmployee(Employee emp)
+        {
+            var existingManager = ctx.Managers.Find(emp.Id);
+            if (existingManager == null)
+            {
+                ctx.Employees.Add(emp);
+            }
+            else
+            {
+                ctx.Entry(existingManager).CurrentValues.SetValues(emp);
+            }
+            ctx.SaveChanges();
+        }
+        public void AddDepartment(Department dep)
+        {
+            var existingManager = ctx.Managers.Find(dep.DepartmentCode);
+            if (existingManager == null)
+            {
+                ctx.DepartmentsDb.Add(dep);
+            }
+            else
+            {
+                ctx.Entry(existingManager).CurrentValues.SetValues(dep);
+            }
+            ctx.SaveChanges();
+        }
+        public void AddManager(Manager manager)
+        {
+            var existingManager = ctx.Managers.Find(manager.ManagerId);
+            if (existingManager == null)
+            {
+                ctx.Managers.Add(manager);
+            }
+            else
+            {
+                ctx.Entry(existingManager).CurrentValues.SetValues(manager);
+            }
+            ctx.SaveChanges();
+        }
+
 
     }
 }

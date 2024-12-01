@@ -219,9 +219,39 @@ namespace Feleves_Feladat
                     Console.WriteLine($"\tVezető: {dep.Element("HeadOfDepartment")?.Value}");
                     Console.WriteLine();
                 }
+                
             }
+            
             Console.WriteLine("0, Visszalépés a menübe");
             VisszaLepesAFoMenube();
+        }
+        //XML adatbázisbatöltése
+        public static List<Employee> ProcessEmployeesFromXml(string filePath)
+        {
+            XDocument doc = XDocument.Load(filePath);
+
+            return doc.Descendants("Employee").Select(emp => new Employee
+            {
+                Id = emp.Element("Id")?.Value,
+                Name = emp.Element("Name")?.Value,
+                BirthYear = Convert.ToInt32(emp.Element("BirthYear")?.Value),
+                StartYear = Convert.ToInt32(emp.Element("StartYear")?.Value),
+                CompletedProjects = Convert.ToInt32(emp.Element("CompletedProjects")?.Value),
+                Active = Convert.ToBoolean(emp.Element("Active")?.Value),
+                Retired = Convert.ToBoolean(emp.Element("Retired")?.Value),
+                Email = emp.Element("Email")?.Value,
+                Phone = emp.Element("Phone")?.Value,
+                Job = emp.Element("Job")?.Value,
+                Level = emp.Element("Level")?.Value,
+                Salary = Convert.ToInt32(emp.Element("Salary")?.Value),
+                Commission = Convert.ToInt32(emp.Element("Commission")?.Value),
+                Departments = emp.Element("Departments")!.Elements("Department").Select(dept => new Department
+                {
+                    Name = dept.Element("Name")!.Value,
+                    DepartmentCode = dept.Element("DepartmentCode")!.Value,
+                    HeadOfDepartment = dept.Element("HeadOfDepartment")!.Value
+                }).ToList()
+            }).ToList();
         }
         private static void AdatImportJSON()
         {
@@ -240,7 +270,7 @@ namespace Feleves_Feladat
 
             foreach (var item in managers!) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
-               
+                repo.AddManager(item);
                 Console.WriteLine(item.ToString() + "\n");
             }
             Console.WriteLine("JSON adatok importálva az adatbázisba.");
