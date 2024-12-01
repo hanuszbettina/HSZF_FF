@@ -69,7 +69,25 @@ namespace FelevesFeladatInfrastructure
             manIdUpd.HasMBA = man.HasMBA;
             ctx.SaveChanges();
         }
-
+        //Delete
+        public void EmployeeDeleteById(string id)
+        {
+            var empIdDel = ctx.Employees.FirstOrDefault(e => e.Id == id);
+            ctx.Employees.Remove(empIdDel);
+            ctx.SaveChanges();
+        }
+        public void DepartmentDeleteById(string id)
+        {
+            var depIdDel = ctx.DepartmentsDb.FirstOrDefault(d => d.DepartmentCode == id);
+            ctx.DepartmentsDb.Remove(depIdDel);
+            ctx.SaveChanges();
+        }
+        public void ManagerDeleteById(string id)
+        {
+            var manIdDel = ctx.Managers.FirstOrDefault(m => m.ManagerId == id);
+            ctx.Managers.Remove(manIdDel);
+            ctx.SaveChanges();
+        }
 
     }
 }
