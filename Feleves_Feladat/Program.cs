@@ -240,7 +240,7 @@ namespace Feleves_Feladat
 
             foreach (var item in managers!) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
-                repo.AddManager(item);
+               
                 Console.WriteLine(item.ToString() + "\n");
             }
             Console.WriteLine("JSON adatok importálva az adatbázisba.");
@@ -260,7 +260,7 @@ namespace Feleves_Feladat
         }
 
         
-        private static bool CRUD()
+        private static void CRUD()
         {
             Console.Clear();
             Console.WriteLine("0) Visszalépés a menübe");
@@ -270,189 +270,6 @@ namespace Feleves_Feladat
             Console.WriteLine("4) Delete");
             
             Console.Write("\r\nVálasztott menüpont száma: ");
-            
-            EmployeeDbContext ctx = new EmployeeDbContext();
-
-            Repository repo = new Repository(ctx);
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    Console.Clear();
-                    bool showMenu = true;
-                    while (showMenu)
-                    {
-                        switch (OsztalyBekeres())
-                        {
-                            case "Employee":
-                                Console.WriteLine("Employee adatok\n");
-                                repo.CreateEmployee(EmpPeldanyCreate());
-                                break;
-                            case "Department":
-                                
-                                repo.CreateDepartment(DepPeldanyCreate());
-                                break;
-                            case "Manager":
-                                repo.CreateManager(ManPeldanyCreate());
-                                break;
-                        }
-                    }
-
-                    return true;
-                case "2":
-                    Console.Clear();
-                    showMenu = true;
-                    while (showMenu)
-                    {
-                        switch (OsztalyBekeres())
-                        {
-                            case "Employee":
-                                Console.Clear();
-                                Console.WriteLine(repo.ReadAllEmployee()); 
-                                break;
-                            case "Department":
-                                Console.Clear();
-                                Console.WriteLine(repo.ReadAllDepartment());
-                                break;
-                            case "Manager":
-                                Console.Clear();
-                                var mans = repo.ReadAllManager();
-                                foreach (var item in mans)
-                                {
-                                    if (item.HasMBA)
-                                    {
-                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment}\nMBA: Van");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment.Year}\nMBA: Nincs");
-                                    }
-                                }
-                                Console.WriteLine(repo.ReadAllManager());
-                                break;
-                        }
-                    }
-                    return true;
-                case "3":
-                    Console.Clear();
-                    showMenu = true;
-                    while (showMenu)
-                    {
-                        switch (OsztalyBekeres())
-                        {
-                            case "Employee":
-                                Console.WriteLine("Employee adatok\n");
-
-                                repo.EmployeeUpdate(EmpPeldanyCreate());
-                                break;
-                            case "Department":
-                                Console.WriteLine("Deparment adatok\n");
-                                repo.DepartmentUpdate(DepPeldanyCreate());
-                                break;
-                            case "Manager":
-                                Console.WriteLine("Manager adatok\n");
-                                repo.ManagerUpdate(ManPeldanyCreate());
-                                break;
-                        }
-                    }
-                    return true;
-                case "4":
-                    Console.Clear();
-                    showMenu = true;
-                    while (showMenu)
-                    {
-                        Console.WriteLine("Kérem adja meg a törölni kívánt azonosítót: ");
-                        string azon = Console.ReadLine();
-                        switch (OsztalyBekeres())
-                        {
-                            case "Employee":
-                                repo.EmployeeDeleteById(azon);
-                                break;
-                            case "Department":
-                                repo.DepartmentDeleteById(azon);
-                                break;
-                            case "Manager":
-                                repo.ManagerDeleteById(azon);
-                                break;
-                        }
-                    }
-                    return true;
-                case "0":
-                    return false;
-                default:
-                    return true;
-            }
-
-        }
-        //CRUD segéd metódusok
-        private static Employee EmpPeldanyCreate()
-        {
-            Console.WriteLine("Kérem az Id-t (pl: EMP008 vagy EMP030): ");
-            string empId = Console.ReadLine();
-            Console.WriteLine("Neve: ");
-            string empName = Console.ReadLine();
-            Console.WriteLine("Létrejöttének éve: ");
-            int empBirtYear = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Kezdetének éve: ");
-            int empStartYear = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Teljesített projektek száma: ");
-            int empCompletedProjects = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Aaktív-e (true/false): ");
-            bool empActive = Convert.ToBoolean(Console.ReadLine());
-            Console.WriteLine("Nyugdíjas-e (true/false): ");
-            bool empRetired = Convert.ToBoolean(Console.ReadLine());
-            Console.WriteLine("Email címe: ");
-            string empEmail = Console.ReadLine();
-            Console.WriteLine("Telefonszáma: ");
-            string empPhone = Console.ReadLine();
-            Console.WriteLine("Munkája: ");
-            string empJob = Console.ReadLine();
-            Console.WriteLine("Szintje (Junior/Senior/Medior): ");
-            string empLevel = Console.ReadLine();
-            Console.WriteLine("Fizetése: ");
-            int empSalary = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Juttatása: ");
-            int empCommission = Convert.ToInt32(Console.ReadLine());
-            Employee emp = new Employee(empId, empName, empBirtYear, empStartYear, empCompletedProjects, empActive, empRetired, empEmail, empPhone, empJob, empLevel, empSalary, empCommission);
-            return emp;
-        }
-        private static Department DepPeldanyCreate()
-        {
-            Console.WriteLine("Deparment adatok\n");
-            Console.WriteLine("Neve: ");
-            string depName = Console.ReadLine();
-            Console.WriteLine("Kérem az azonosítótt (pl: SW101 vagy DB102): ");
-            string depCode = Console.ReadLine();
-            Console.WriteLine("Főnök neve: ");
-            string depHead = Console.ReadLine();
-            Department dep = new Department(depName, depCode, depHead);
-            return dep;
-        }
-        private static Manager ManPeldanyCreate()
-        {
-            Console.WriteLine("Manager adatok\n");
-            Console.WriteLine("Neve: ");
-            string manName = Console.ReadLine();
-            Console.WriteLine("Kérem az azonosítótt (pl: MGR456 vagy MGR789): ");
-            string manId = Console.ReadLine();
-            Console.WriteLine("Születési éve: ");
-            int manBirtYear = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Munkájának kezdeti dátuma (pl: 1998-05-10): ");
-            DateTime manStartOfEmployment = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("Vane MBA-ja (true/false): ");
-            bool manHasMBA = Convert.ToBoolean(Console.ReadLine());
-            Manager man = new Manager(manName, manId, manBirtYear, manStartOfEmployment, manHasMBA);
-            return man;
-        }
-        private static string OsztalyBekeres() //EZ MÉG NEM JÓ :(
-        {
-            string type;
-            do
-            {
-                Console.WriteLine("Kérem adja meg a szerkeszteni kívánt elemet (Employee/Department/Manager):\n");
-                type = Console.ReadLine();
-
-            } while (type != "Employee" && type != "Department" && type != "Manager");
-            return type;
         }
         private static void Grafikon()
         {
