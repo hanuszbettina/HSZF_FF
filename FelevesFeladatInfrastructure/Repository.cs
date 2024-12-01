@@ -23,8 +23,18 @@ namespace FelevesFeladatInfrastructure
             ctx.Employees.Add(emp);
             ctx.SaveChanges();
         }
+        public void CreateDepartment(Department dep)
+        {
+            ctx.DepartmentsDb.Add(dep);
+            ctx.SaveChanges();
+        }
+        public void CreateManager(Manager man)
+        {
+            ctx.Managers.Add(man);
+            ctx.SaveChanges();
+        }
 
-        
-        
+
+
     }
 }
