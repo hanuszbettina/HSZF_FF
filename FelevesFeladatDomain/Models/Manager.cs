@@ -13,20 +13,20 @@ namespace Feleves_Feladat.Models
     [ToExport("Manager")]
     public class Manager
     {
-        //public Manager()
-        //{
-        //    Departments = new HashSet<Department>();
-        //}
+        public Manager()
+        {
+            Departments = new HashSet<Department>();
+        }
 
-        //public Manager(string? name, string? managerId, int birthYear, DateTime startOfEmployment, bool hasMBA)
-        //{
-        //    Name = name;
-        //    ManagerId = managerId;
-        //    BirthYear = birthYear;
-        //    StartOfEmployment = startOfEmployment;
-        //    HasMBA = hasMBA;
-        //    Departments = new HashSet<Department>();
-        //}
+        public Manager(string? name, string? managerId, int birthYear, DateTime startOfEmployment, bool hasMBA)
+        {
+            Name = name;
+            ManagerId = managerId;
+            BirthYear = birthYear;
+            StartOfEmployment = startOfEmployment;
+            HasMBA = hasMBA;
+            Departments = new HashSet<Department>();
+        }
         [StringLength(100)]
         public string? Name { get; set; }
         [Key]

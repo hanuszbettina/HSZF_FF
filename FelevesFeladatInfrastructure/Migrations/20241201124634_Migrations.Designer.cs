@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FelevesFeladatInfrastructure.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20241130164625_Migrations")]
+    [Migration("20241201124634_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />

@@ -10,11 +10,12 @@ namespace FelevesFeladatInfrastructure
 {
     public class EmployeeDbContext : DbContext
     {
-        public DbSet<Employee> EmployeesDb { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> DepartmentsDb { get; set; }
-        public DbSet<Manager> ManagersDb { get; set; }
+        public DbSet<Manager> Managers { get; set; }
         public EmployeeDbContext()
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,8 +31,8 @@ namespace FelevesFeladatInfrastructure
                 .WithMany(r => r.Employees);
             modelBuilder.Entity<Manager>()
                 .HasMany(m => m.Departments)
-                .WithOne(r => r.Managercon)
-                .HasForeignKey(r => r.Name);
+                .WithOne(r => r.Managercon);
+                //.HasForeignKey(r => r.Name);
         }
     }
 }

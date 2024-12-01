@@ -13,16 +13,17 @@ namespace Feleves_Feladat.Models
     [ToExport("Department")]
     public class Department
     {
-        //public Department()
-        //{
-        //}
+        public Department()
+        {
+            Employees = new HashSet<Employee>();
+        }
 
-        //public Department(string? name, string? departmentCode, string? headOfDepartment)
-        //{
-        //    Name = name;
-        //    DepartmentCode = departmentCode;
-        //    HeadOfDepartment = headOfDepartment;
-        //}
+        public Department(string? name, string? departmentCode, string? headOfDepartment)
+        {
+            Name = name;
+            DepartmentCode = departmentCode;
+            HeadOfDepartment = headOfDepartment;
+        }
         [StringLength(100)]
         public string? Name { get; set; }
         [Key]

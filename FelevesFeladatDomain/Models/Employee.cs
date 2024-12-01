@@ -14,29 +14,28 @@ namespace Feleves_Feladat.Models
     [ToExport("Employee")]
     public class Employee
     {
-        //public Employee(string id)
-        //{
-        //    Id = id;
-        //    Departments = new HashSet<Department>();
-        //}
+        public Employee()
+        {
+            Departments = new HashSet<Department>();
+        }
 
-        //public Employee(string id, string? name, int birthYear, int startYear, int completedProjects, bool active, bool retired, string? email, string? phone, string? job, string? level, int salary, int commission)
-        //{
-        //    Id = id;
-        //    Name = name;
-        //    BirthYear = birthYear;
-        //    StartYear = startYear;
-        //    CompletedProjects = completedProjects;
-        //    Active = active;
-        //    Retired = retired;
-        //    Email = email;
-        //    Phone = phone;
-        //    Job = job;
-        //    Level = level;
-        //    Salary = salary;
-        //    Commission = commission;
-        //    Departments = new HashSet<Department>();
-        //}
+        public Employee(string id, string? name, int birthYear, int startYear, int completedProjects, bool active, bool retired, string? email, string? phone, string? job, string? level, int salary, int commission)
+        {
+            Id = id;
+            Name = name;
+            BirthYear = birthYear;
+            StartYear = startYear;
+            CompletedProjects = completedProjects;
+            Active = active;
+            Retired = retired;
+            Email = email;
+            Phone = phone;
+            Job = job;
+            Level = level;
+            Salary = salary;
+            Commission = commission;
+            Departments = new HashSet<Department>();
+        }
 
         [Key]
         [Required]

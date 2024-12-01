@@ -1,6 +1,7 @@
 ﻿using Feleves_Feladat.Models;
 using FelevesFeladatDomain;
 using FelevesFeladatDomain.Attributes;
+using FelevesFeladatInfrastructure;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.Metrics;
@@ -9,6 +10,7 @@ using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Xml.Linq;
 using static Azure.Core.HttpHeader;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Feleves_Feladat
 {
@@ -67,34 +69,34 @@ namespace Feleves_Feladat
         private static bool LekerdezesekAlmenu()
         {
             Console.Clear();
-            Console.WriteLine("Vezető lekérdezések");
-            Console.WriteLine("1) Hány doktori címmel rendelkező vezető(manager) van?");
-            Console.WriteLine("2) Van - e olyan(és ha igen ki / kik) akik doktori címmel rendelkeznek, de MBA(Master of Business Administration) végzettségük nincs?");
-            Console.WriteLine("3) Ki a legrégebb óta munkában lévő vezető?");
-            Console.WriteLine("4) Melyik az a vezető, aki az élt éveihez képest a legtöbb ideje dolgozik a cégnél?");
-            Console.WriteLine("5) Mi a vezetők közötti arány, hány embernek van MBA végzettsége, szemben azokkal akiknek nincs?");
+            Console.WriteLine("0) Visszalépés a menübe");
+            Console.WriteLine("\nVezető lekérdezések");
+            Console.WriteLine("\t1) Hány doktori címmel rendelkező vezető(manager) van?");
+            Console.WriteLine("\t2) Van - e olyan(és ha igen ki / kik) akik doktori címmel rendelkeznek, de MBA(Master of Business Administration) végzettségük nincs?");
+            Console.WriteLine("\t3) Ki a legrégebb óta munkában lévő vezető?");
+            Console.WriteLine("\t4) Melyik az a vezető, aki az élt éveihez képest a legtöbb ideje dolgozik a cégnél?");
+            Console.WriteLine("\t5) Mi a vezetők közötti arány, hány embernek van MBA végzettsége, szemben azokkal akiknek nincs?");
             Console.WriteLine("\nAlkalmazott lekérdezések");
-            Console.WriteLine("6) Hány alkalmazott van, akik a 80 -as években születtek?");
-            Console.WriteLine("7) Hány alkalmazott van, akik legalább két részlegen dolgoznak?");
-            Console.WriteLine("8) Melyik alkalmazottak azok akik jelenleg nyugdíjba mentek de mégis dolgoznak?");
-            Console.WriteLine("9) Hány alkalmazott van akik nyugdíjba mentek és ennek megfelelően nem dolgoznak?");
-            Console.WriteLine("10) Mennyit keresnek átlagosan azok, akik már nyugdíjba mentek?");
-            Console.WriteLine("11) Keresetük alapján(jutalékot is beleértve) csökkenő sorrendben kik dolgoznak itt?");
-            Console.WriteLine("12) Tudásszintjük alapján(junior, medior, senior) a dolgozók milyen összetételben dolgoznak a cégnél(100 % az összes dolgozó) ?");
-            Console.WriteLine("13) Melyek azok a dolgozók, akik olyan részleghez tartoznak ahol van doktori címmel rendelkező részlegvezető?");
-            Console.WriteLine("14) Hány olyan dolgozó van, akiknek a fizetése meghaladja az átlagos fizetési szintet; illetve hány van akik ez alatt keresnek(a jutalékot nem számolva) ?");
-            Console.WriteLine("15) Mi az átlagfizetés(jutalékot nem nézve) az egyes szintekben?");
-            Console.WriteLine("16) Ki keres többet a jelenlegi dolgozók közül: aki medior szinten átlagfizetést kap vagy egy junior aki a legmagasabb fizetést kapja?");
-            Console.WriteLine("17) Melyik kategóriában(junior, medior, senior) a legtöbb a jutalék mértéke?");
-            Console.WriteLine("18) Melyik alkalmazott az, aki az itt töltött éveihez képest a legkevesebb projekten dolgozott?");
-            Console.WriteLine("19) Születési sorrendben ki mennyit keres?");
-            Console.WriteLine("20) A jelenleg aktív státuszban itt dolgozó alkalmazottak közül ki dolgozott a legkevesebb projekten?");
-            Console.WriteLine("21) Van-e olyan eset, ahol egy dolgozónak a jutaléka nagyobb, mint egy másik dolgozó alap fizetése? Ha igen, melyik kié ?");
+            Console.WriteLine("\t6) Hány alkalmazott van, akik a 80 -as években születtek?");
+            Console.WriteLine("\t7) Hány alkalmazott van, akik legalább két részlegen dolgoznak?");
+            Console.WriteLine("\t8) Melyik alkalmazottak azok akik jelenleg nyugdíjba mentek de mégis dolgoznak?");
+            Console.WriteLine("\t9) Hány alkalmazott van akik nyugdíjba mentek és ennek megfelelően nem dolgoznak?");
+            Console.WriteLine("\t10) Mennyit keresnek átlagosan azok, akik már nyugdíjba mentek?");
+            Console.WriteLine("\t11) Keresetük alapján(jutalékot is beleértve) csökkenő sorrendben kik dolgoznak itt?");
+            Console.WriteLine("\t12) Tudásszintjük alapján(junior, medior, senior) a dolgozók milyen összetételben dolgoznak a cégnél(100 % az összes dolgozó) ?");
+            Console.WriteLine("\t13) Melyek azok a dolgozók, akik olyan részleghez tartoznak ahol van doktori címmel rendelkező részlegvezető?");
+            Console.WriteLine("\t14) Hány olyan dolgozó van, akiknek a fizetése meghaladja az átlagos fizetési szintet; illetve hány van akik ez alatt keresnek(a jutalékot nem számolva) ?");
+            Console.WriteLine("\t15) Mi az átlagfizetés(jutalékot nem nézve) az egyes szintekben?");
+            Console.WriteLine("\t16) Ki keres többet a jelenlegi dolgozók közül: aki medior szinten átlagfizetést kap vagy egy junior aki a legmagasabb fizetést kapja?");
+            Console.WriteLine("\t17) Melyik kategóriában(junior, medior, senior) a legtöbb a jutalék mértéke?");
+            Console.WriteLine("\t18) Melyik alkalmazott az, aki az itt töltött éveihez képest a legkevesebb projekten dolgozott?");
+            Console.WriteLine("\t19) Születési sorrendben ki mennyit keres?");
+            Console.WriteLine("\t20) A jelenleg aktív státuszban itt dolgozó alkalmazottak közül ki dolgozott a legkevesebb projekten?");
+            Console.WriteLine("\t21) Van-e olyan eset, ahol egy dolgozónak a jutaléka nagyobb, mint egy másik dolgozó alap fizetése? Ha igen, melyik kié ?");
             Console.WriteLine("\nVegyes lekérdezések");
-            Console.WriteLine("22) Ki dolgozik a legrégebb óta a cégnél? Vezetők és alkalmazottakat közösen nézve.");
-            Console.WriteLine("23) Van-e olyan manager aki egyben részlegvezető is? Ha igen, ki az?");
-            Console.WriteLine("24) Kik azok, akik vagy csak részlegvezetők, vagy csak manager-ek ?");
-            Console.WriteLine("\n0) Visszalépés a menübe");
+            Console.WriteLine("\t22) Ki dolgozik a legrégebb óta a cégnél? Vezetők és alkalmazottakat közösen nézve.");
+            Console.WriteLine("\t23) Van-e olyan manager aki egyben részlegvezető is? Ha igen, ki az?");
+            Console.WriteLine("\t24) Kik azok, akik vagy csak részlegvezetők, vagy csak manager-ek ?");
             Console.Write("\r\nVálasztott menüpont száma: ");
 
             switch (Console.ReadLine())
@@ -223,6 +225,8 @@ namespace Feleves_Feladat
         }
         private static void AdatImportJSON()
         {
+            EmployeeDbContext ctx = new EmployeeDbContext();
+            Repository repo = new Repository(ctx);
             //letölti a linken található doksit
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
@@ -236,8 +240,10 @@ namespace Feleves_Feladat
 
             foreach (var item in managers!) //ha fix nincs null értékünk a hibaüzenetet !-tel feloldható
             {
+                repo.AddManager(item);
                 Console.WriteLine(item.ToString() + "\n");
             }
+            Console.WriteLine("JSON adatok importálva az adatbázisba.");
             Console.WriteLine("\n0, Visszalépés a menübe");
             VisszaLepesAFoMenube();
 
@@ -249,15 +255,204 @@ namespace Feleves_Feladat
             Console.WriteLine("Az alábbi osztálytályok (Department, Employee, Manager) exportálása xml fájlba.");
             DataFetcher df = new DataFetcher();
             df.FetchDataFromProgram();
-
             Console.WriteLine("\n0, Visszalépés a menübe");
             VisszaLepesAFoMenube();
         }
+
         
-    
-    private static void CRUD()
+        private static bool CRUD()
         {
-            Console.WriteLine("CRUD");
+            Console.Clear();
+            Console.WriteLine("0) Visszalépés a menübe");
+            Console.WriteLine("1) Create");
+            Console.WriteLine("2) Read");
+            Console.WriteLine("3) Update");
+            Console.WriteLine("4) Delete");
+            
+            Console.Write("\r\nVálasztott menüpont száma: ");
+            
+            EmployeeDbContext ctx = new EmployeeDbContext();
+
+            Repository repo = new Repository(ctx);
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    Console.Clear();
+                    bool showMenu = true;
+                    while (showMenu)
+                    {
+                        switch (OsztalyBekeres())
+                        {
+                            case "Employee":
+                                Console.WriteLine("Employee adatok\n");
+                                repo.CreateEmployee(EmpPeldanyCreate());
+                                break;
+                            case "Department":
+                                
+                                repo.CreateDepartment(DepPeldanyCreate());
+                                break;
+                            case "Manager":
+                                repo.CreateManager(ManPeldanyCreate());
+                                break;
+                        }
+                    }
+
+                    return true;
+                case "2":
+                    Console.Clear();
+                    showMenu = true;
+                    while (showMenu)
+                    {
+                        switch (OsztalyBekeres())
+                        {
+                            case "Employee":
+                                Console.Clear();
+                                Console.WriteLine(repo.ReadAllEmployee()); 
+                                break;
+                            case "Department":
+                                Console.Clear();
+                                Console.WriteLine(repo.ReadAllDepartment());
+                                break;
+                            case "Manager":
+                                Console.Clear();
+                                var mans = repo.ReadAllManager();
+                                foreach (var item in mans)
+                                {
+                                    if (item.HasMBA)
+                                    {
+                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment}\nMBA: Van");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment.Year}\nMBA: Nincs");
+                                    }
+                                }
+                                Console.WriteLine(repo.ReadAllManager());
+                                break;
+                        }
+                    }
+                    return true;
+                case "3":
+                    Console.Clear();
+                    showMenu = true;
+                    while (showMenu)
+                    {
+                        switch (OsztalyBekeres())
+                        {
+                            case "Employee":
+                                Console.WriteLine("Employee adatok\n");
+
+                                repo.EmployeeUpdate(EmpPeldanyCreate());
+                                break;
+                            case "Department":
+                                Console.WriteLine("Deparment adatok\n");
+                                repo.DepartmentUpdate(DepPeldanyCreate());
+                                break;
+                            case "Manager":
+                                Console.WriteLine("Manager adatok\n");
+                                repo.ManagerUpdate(ManPeldanyCreate());
+                                break;
+                        }
+                    }
+                    return true;
+                case "4":
+                    Console.Clear();
+                    showMenu = true;
+                    while (showMenu)
+                    {
+                        Console.WriteLine("Kérem adja meg a törölni kívánt azonosítót: ");
+                        string azon = Console.ReadLine();
+                        switch (OsztalyBekeres())
+                        {
+                            case "Employee":
+                                repo.EmployeeDeleteById(azon);
+                                break;
+                            case "Department":
+                                repo.DepartmentDeleteById(azon);
+                                break;
+                            case "Manager":
+                                repo.ManagerDeleteById(azon);
+                                break;
+                        }
+                    }
+                    return true;
+                case "0":
+                    return false;
+                default:
+                    return true;
+            }
+
+        }
+        //CRUD segéd metódusok
+        private static Employee EmpPeldanyCreate()
+        {
+            Console.WriteLine("Kérem az Id-t (pl: EMP008 vagy EMP030): ");
+            string empId = Console.ReadLine();
+            Console.WriteLine("Neve: ");
+            string empName = Console.ReadLine();
+            Console.WriteLine("Létrejöttének éve: ");
+            int empBirtYear = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Kezdetének éve: ");
+            int empStartYear = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Teljesített projektek száma: ");
+            int empCompletedProjects = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Aaktív-e (true/false): ");
+            bool empActive = Convert.ToBoolean(Console.ReadLine());
+            Console.WriteLine("Nyugdíjas-e (true/false): ");
+            bool empRetired = Convert.ToBoolean(Console.ReadLine());
+            Console.WriteLine("Email címe: ");
+            string empEmail = Console.ReadLine();
+            Console.WriteLine("Telefonszáma: ");
+            string empPhone = Console.ReadLine();
+            Console.WriteLine("Munkája: ");
+            string empJob = Console.ReadLine();
+            Console.WriteLine("Szintje (Junior/Senior/Medior): ");
+            string empLevel = Console.ReadLine();
+            Console.WriteLine("Fizetése: ");
+            int empSalary = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Juttatása: ");
+            int empCommission = Convert.ToInt32(Console.ReadLine());
+            Employee emp = new Employee(empId, empName, empBirtYear, empStartYear, empCompletedProjects, empActive, empRetired, empEmail, empPhone, empJob, empLevel, empSalary, empCommission);
+            return emp;
+        }
+        private static Department DepPeldanyCreate()
+        {
+            Console.WriteLine("Deparment adatok\n");
+            Console.WriteLine("Neve: ");
+            string depName = Console.ReadLine();
+            Console.WriteLine("Kérem az azonosítótt (pl: SW101 vagy DB102): ");
+            string depCode = Console.ReadLine();
+            Console.WriteLine("Főnök neve: ");
+            string depHead = Console.ReadLine();
+            Department dep = new Department(depName, depCode, depHead);
+            return dep;
+        }
+        private static Manager ManPeldanyCreate()
+        {
+            Console.WriteLine("Manager adatok\n");
+            Console.WriteLine("Neve: ");
+            string manName = Console.ReadLine();
+            Console.WriteLine("Kérem az azonosítótt (pl: MGR456 vagy MGR789): ");
+            string manId = Console.ReadLine();
+            Console.WriteLine("Születési éve: ");
+            int manBirtYear = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Munkájának kezdeti dátuma (pl: 1998-05-10): ");
+            DateTime manStartOfEmployment = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Vane MBA-ja (true/false): ");
+            bool manHasMBA = Convert.ToBoolean(Console.ReadLine());
+            Manager man = new Manager(manName, manId, manBirtYear, manStartOfEmployment, manHasMBA);
+            return man;
+        }
+        private static string OsztalyBekeres() //EZ MÉG NEM JÓ :(
+        {
+            string type;
+            do
+            {
+                Console.WriteLine("Kérem adja meg a szerkeszteni kívánt elemet (Employee/Department/Manager):\n");
+                type = Console.ReadLine();
+
+            } while (type != "Employee" && type != "Department" && type != "Manager");
+            return type;
         }
         private static void Grafikon()
         {
