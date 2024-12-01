@@ -33,6 +33,19 @@ namespace FelevesFeladatInfrastructure
             ctx.Managers.Add(man);
             ctx.SaveChanges();
         }
+        //Read
+        public IEnumerable<Employee> ReadAllEmployee()
+        {
+            return ctx.Employees;
+        }
+        public IEnumerable<Department> ReadAllDepartment()
+        {
+            return ctx.DepartmentsDb;
+        }
+        public IEnumerable<Manager> ReadAllManager()
+        {
+            return ctx.Managers.ToList();
+        }
 
 
 
