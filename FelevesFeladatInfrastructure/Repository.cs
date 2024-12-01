@@ -18,6 +18,7 @@ namespace FelevesFeladatInfrastructure
         {
             this.ctx = ctx;
         }
+        //Create
         public void CreateEmployee(Employee emp)
         {
             ctx.Employees.Add(emp);
@@ -46,7 +47,28 @@ namespace FelevesFeladatInfrastructure
         {
             return ctx.Managers.ToList();
         }
-
+        //Update
+        public void EmployeeUpdate(Employee emp)
+        {
+            var empIdUpd = ctx.Employees.FirstOrDefault(e => e.Id == emp.Id);
+            ctx.SaveChanges();
+        }
+        public void DepartmentUpdate(Department dep)
+        {
+            var depIdUpd = ctx.DepartmentsDb.FirstOrDefault(d => d.DepartmentCode == dep.DepartmentCode);
+            depIdUpd.Name = dep.Name;
+            depIdUpd.HeadOfDepartment = dep.HeadOfDepartment;
+            ctx.SaveChanges();
+        }
+        public void ManagerUpdate(Manager man)
+        {
+            var manIdUpd = ctx.Managers.FirstOrDefault(m => m.ManagerId == man.ManagerId);
+            manIdUpd.Name = man.Name;
+            manIdUpd.BirthYear = man.BirthYear;
+            manIdUpd.StartOfEmployment = man.StartOfEmployment;
+            manIdUpd.HasMBA = man.HasMBA;
+            ctx.SaveChanges();
+        }
 
 
     }
