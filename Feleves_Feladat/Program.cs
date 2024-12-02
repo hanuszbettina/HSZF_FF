@@ -238,6 +238,11 @@ namespace Feleves_Feladat
                     return true;
                 case "13":
                     //lekérdezés megvalósítása
+                    var emp13 = repo.ReadAllEmployee()
+                    .Where(e => e.Departments.Any(d => d.HeadOfDepartment.StartsWith("Dr")))
+                    .ToList();
+                    Console.WriteLine($"Doktori címmel rendelkező vezetői alá tartozó alkalmazottak száma: {employees.Count}");
+                    Console.ReadKey();
                     return true;
                 case "14":
                     //lekérdezés megvalósítása
