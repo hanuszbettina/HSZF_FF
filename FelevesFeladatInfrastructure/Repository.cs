@@ -48,45 +48,49 @@ namespace FelevesFeladatInfrastructure
             return ctx.Managers.ToList();
         }
         //Update
-        public void EmployeeUpdate(Employee emp)
+        public void EmployeeUpdate(string id)
         {
-            var empIdUpd = ctx.Employees.FirstOrDefault(e => e.Id == emp.Id);
+            var empIdUpd = ctx.Employees.FirstOrDefault(e => e.Id == id);
             ctx.SaveChanges();
         }
-        public void DepartmentUpdate(Department dep)
+        public void DepartmentUpdate(string id)
         {
-            var depIdUpd = ctx.DepartmentsDb.FirstOrDefault(d => d.DepartmentCode == dep.DepartmentCode);
-            depIdUpd.Name = dep.Name;
-            depIdUpd.HeadOfDepartment = dep.HeadOfDepartment;
+            var depIdUpd = ctx.DepartmentsDb.FirstOrDefault(d => d.DepartmentCode == id);
             ctx.SaveChanges();
         }
         public void ManagerUpdate(Manager man)
         {
-            var manIdUpd = ctx.Managers.FirstOrDefault(m => m.ManagerId == man.ManagerId);
-            manIdUpd.Name = man.Name;
-            manIdUpd.BirthYear = man.BirthYear;
-            manIdUpd.StartOfEmployment = man.StartOfEmployment;
-            manIdUpd.HasMBA = man.HasMBA;
+            //var manIdUpd = ctx.Managers.FirstOrDefault(m => m.ManagerId == id);
+            ctx.Managers.Update(man);
             ctx.SaveChanges();
         }
         //Delete
         public void EmployeeDeleteById(string id)
         {
-            var empIdDel = ctx.Employees.FirstOrDefault(e => e.Id == id);
-            ctx.Employees.Remove(empIdDel);
-            ctx.SaveChanges();
+            var emp = ctx.Employees.Find(id);
+            if (emp != null)
+            {
+                ctx.Employees.Remove(emp);
+                ctx.SaveChanges();
+            }
         }
         public void DepartmentDeleteById(string id)
         {
-            var depIdDel = ctx.DepartmentsDb.FirstOrDefault(d => d.DepartmentCode == id);
-            ctx.DepartmentsDb.Remove(depIdDel);
-            ctx.SaveChanges();
+            var dep = ctx.DepartmentsDb.Find(id);
+            if (dep != null)
+            {
+                ctx.DepartmentsDb.Remove(dep);
+                ctx.SaveChanges();
+            }
         }
         public void ManagerDeleteById(string id)
         {
-            var manIdDel = ctx.Managers.FirstOrDefault(m => m.ManagerId == id);
-            ctx.Managers.Remove(manIdDel);
-            ctx.SaveChanges();
+            var manager = ctx.Managers.Find(id);
+            if (manager != null)
+            {
+                ctx.Managers.Remove(manager);
+                ctx.SaveChanges();
+            }
         }
         //Hozzáadás adatbázishoz
         public void AddEmployee(Employee emp)
@@ -128,7 +132,6 @@ namespace FelevesFeladatInfrastructure
             }
             ctx.SaveChanges();
         }
-
 
     }
 }
