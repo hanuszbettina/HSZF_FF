@@ -547,9 +547,27 @@ namespace Feleves_Feladat
         {
             Console.Clear();
             Console.WriteLine("Grafikon\n");
-
+            GrafikonMegjelenites(CreateEmployeeListFromXml("employees-departments.xml"));
+            Console.WriteLine("\n0, Visszalépés a menübe");
+            VisszaLepesAFoMenube();
         }
-       
+        public static void GrafikonMegjelenites(List<Employee> employees)
+        {
+            Console.Clear();
+            Console.WriteLine("Alkalmazottak fizetése:\n");
+
+            int maxSalary = employees.Max(e => e.Salary);
+            int maxNameLength = employees.Max(e => e.Name.Length);
+
+            foreach (var employee in employees)
+            {
+                string name = employee.Name.PadRight(maxNameLength);
+                int barLength = (int)Math.Round((double)employee.Salary / maxSalary * 20); // 20 a max oszlophossz
+                string bar = new string('█', barLength);
+                Console.WriteLine($"{name} {bar} {employee.Salary:N0} HUF");
+            }
+            Console.ReadKey();
+        }
         public static List<Employee> CreateEmployeeListFromXml(string filePath)
         {
             XDocument doc = XDocument.Load(filePath);
