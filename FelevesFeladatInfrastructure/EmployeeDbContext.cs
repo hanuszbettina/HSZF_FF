@@ -15,7 +15,7 @@ namespace FelevesFeladatInfrastructure
         public DbSet<Manager> Managers { get; set; }
         public EmployeeDbContext()
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

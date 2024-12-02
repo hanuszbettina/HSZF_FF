@@ -221,11 +221,47 @@ namespace Feleves_Feladat
                 }
                 
             }
-            
+            EmployeeDbContext ctx = new EmployeeDbContext();
+            Repository repo = new Repository(ctx);
+            ImportXmlToDatabase(repo.ReadAllEmployee(), repo.ReadAllDepartment(), "employees-departments.xml");
             Console.WriteLine("0, Visszalépés a menübe");
             VisszaLepesAFoMenube();
         }
-        
+        //IEnumerable<Department> ReadAllDepartment()
+        public static void ImportXmlToDatabase(IEnumerable<Employee> empdata, IEnumerable<Department> depdata, string xmlFilePath)
+        {
+            EmployeeDbContext ctx = new EmployeeDbContext();
+            Repository repo = new Repository(ctx);
+            Console.WriteLine("XML import kezdése..");
+            List<Employee> employees = CreateEmployeeListFromXml(xmlFilePath);
+            var depCache = new Dictionary<string, Department>();
+            foreach (var emp in employees)
+            {
+                var depAdd = new List<Department>();
+                foreach (var department in emp.Departments)
+                {
+                    if (!depCache.TryGetValue(department.DepartmentCode, out var Dep))
+                    {
+                        Dep = depdata.FirstOrDefault(d => d.DepartmentCode == department.DepartmentCode);
+                        if (Dep == null)
+                        {
+                            Dep = department;
+                            depCache[department.DepartmentCode] = Dep;
+                        }
+
+                    }
+                    depAdd.Add(Dep);
+                }
+                emp.Departments = depAdd;
+                repo.CreateEmployee(emp);
+            }
+            if (empdata != null && depdata != null)
+            {
+                Console.WriteLine("Sikeres Import");
+                Console.ReadKey();
+            }
+        }
+
         private static void AdatImportJSON()
         {
             EmployeeDbContext ctx = new EmployeeDbContext();
@@ -365,7 +401,7 @@ namespace Feleves_Feladat
                                 Console.Clear();
                                 Console.WriteLine("Kérem a frisíteni kívánt elem id-ját:\n");
                                 id = Console.ReadLine();
-                                repo.EmployeeUpdate(id);
+                                repo.EmployeeUpdate(id,EmpPeldanyCreate());
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -374,7 +410,7 @@ namespace Feleves_Feladat
                                 Console.Clear();
                                 Console.WriteLine("Kérem a frisíteni kívánt elem id-ját:\n");
                                 id = Console.ReadLine();
-                                repo.DepartmentUpdate(id);
+                                repo.DepartmentUpdate(id, DepPeldanyCreate());
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -383,9 +419,7 @@ namespace Feleves_Feladat
                                 Console.Clear();
                                 Console.WriteLine("Kérem a frisíteni kívánt elem id-ját:\n");
                                 id = Console.ReadLine();
-                                Manager man=new Manager();
-                                ManPeldanyCreate();
-                                repo.ManagerUpdate(man);
+                                repo.ManagerUpdate(id, ManPeldanyCreate());
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -413,7 +447,7 @@ namespace Feleves_Feladat
                             case "Department":
                                 Console.Clear();
                                 Console.WriteLine("Kérem adja meg a törölni kívánt azonosítót: ");
-                                azon = Console.ReadLine(); ;
+                                azon = Console.ReadLine(); 
                                 repo.DepartmentDeleteById(azon);
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
@@ -498,7 +532,7 @@ namespace Feleves_Feladat
             Manager man = new Manager(manName, manId, manBirtYear, manStartOfEmployment, manHasMBA);
             return man;
         }
-        private static string OsztalyBekeres() //EZ MÉG NEM JÓ :(
+        private static string OsztalyBekeres()
         {
             string type;
             do
@@ -511,7 +545,37 @@ namespace Feleves_Feladat
         }
         private static void Grafikon()
         {
-            Console.WriteLine("Grafikon");
+            Console.Clear();
+            Console.WriteLine("Grafikon\n");
+
+        }
+       
+        public static List<Employee> CreateEmployeeListFromXml(string filePath)
+        {
+            XDocument doc = XDocument.Load(filePath);
+
+            return doc.Descendants("Employee").Select(emp => new Employee
+            {
+                Id = emp.Attribute("employeeid")?.Value,
+                Name = emp.Element("Name")?.Value,
+                BirthYear = Convert.ToInt32(emp.Element("BirthYear")?.Value ?? "0"),
+                StartYear = Convert.ToInt32(emp.Element("StartYear")?.Value ?? "0"),
+                CompletedProjects = Convert.ToInt32(emp.Element("CompletedProjects")?.Value ?? "0"),
+                Active = bool.Parse(emp.Element("Active")?.Value ?? "false"),
+                Retired = bool.Parse(emp.Element("Retired")?.Value ?? "false"),
+                Email = emp.Element("Email")?.Value,
+                Phone = emp.Element("Phone")?.Value,
+                Job = emp.Element("Job")?.Value,
+                Level = emp.Element("Level")?.Value,
+                Salary = Convert.ToInt32(emp.Element("Salary")?.Value ?? "0"),
+                Commission = Convert.ToInt32(emp.Element("Commission")?.Value ?? "0"),
+                Departments = emp.Element("Departments")!.Elements("Department").Select(dept => new Department
+                {
+                    Name = dept.Element("Name")!.Value,
+                    DepartmentCode = dept.Element("DepartmentCode")!.Value,
+                    HeadOfDepartment = dept.Element("HeadOfDepartment")!.Value
+                }).ToList()
+            }).ToList();
         }
         private static void Lekérdezések()
         {

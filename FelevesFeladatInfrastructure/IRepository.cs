@@ -15,9 +15,9 @@ namespace FelevesFeladatInfrastructure
         IEnumerable<Employee> ReadAllEmployee();
         IEnumerable<Department> ReadAllDepartment();
         IEnumerable<Manager> ReadAllManager();
-        void EmployeeUpdate(string id);
-        void DepartmentUpdate(string id);
-        void ManagerUpdate(Manager man);
+        void EmployeeUpdate(string id, Employee emp );
+        void DepartmentUpdate(string id, Department dep);
+        void ManagerUpdate(string id, Manager man);
         void EmployeeDeleteById(string id);
         void DepartmentDeleteById(string id);
         void ManagerDeleteById(string id);

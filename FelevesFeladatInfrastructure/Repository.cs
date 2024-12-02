@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,21 +49,50 @@ namespace FelevesFeladatInfrastructure
             return ctx.Managers.ToList();
         }
         //Update
-        public void EmployeeUpdate(string id)
+        public void EmployeeUpdate(string id, Employee emp)
         {
-            var empIdUpd = ctx.Employees.FirstOrDefault(e => e.Id == id);
-            ctx.SaveChanges();
+            var empUpdate = ctx.Employees.First(t => t.Id == id);
+            if (emp != null)
+            {
+                empUpdate.Id = emp.Id;
+                empUpdate.Name = emp.Name;
+                empUpdate.BirthYear = emp.BirthYear;
+                empUpdate.StartYear=emp.StartYear;
+                empUpdate.CompletedProjects= emp.CompletedProjects;
+                empUpdate.Active= emp.Active;
+                empUpdate.Retired = emp.Retired;
+                empUpdate.Email = emp.Email;
+                empUpdate.Phone = emp.Phone;
+                empUpdate.Job=emp.Job;
+                empUpdate.Level=emp.Level;
+                empUpdate.Salary=emp.Salary;
+                empUpdate.Commission=emp.Commission;
+                ctx.SaveChanges();
+            }
         }
-        public void DepartmentUpdate(string id)
+        public void DepartmentUpdate(string id, Department dep)
         {
-            var depIdUpd = ctx.DepartmentsDb.FirstOrDefault(d => d.DepartmentCode == id);
-            ctx.SaveChanges();
+            var depUpdate = ctx.DepartmentsDb.First(t => t.DepartmentCode == id);
+            if (dep != null)
+            {
+                depUpdate.Name = dep.Name;
+                depUpdate.DepartmentCode = dep.DepartmentCode;
+                depUpdate.HeadOfDepartment = dep.HeadOfDepartment;
+                ctx.SaveChanges();
+            }
         }
-        public void ManagerUpdate(Manager man)
+        public void ManagerUpdate(string id, Manager man)
         {
-            //var manIdUpd = ctx.Managers.FirstOrDefault(m => m.ManagerId == id);
-            ctx.Managers.Update(man);
-            ctx.SaveChanges();
+            var manUpdate = ctx.Managers.First(t => t.ManagerId == id);
+            if (man != null)
+            {
+                manUpdate.Name=man.Name;
+                manUpdate.ManagerId = man.ManagerId;
+                manUpdate.BirthYear = man.BirthYear;
+                manUpdate.StartOfEmployment = man.StartOfEmployment;
+                manUpdate.HasMBA = man.HasMBA;
+                ctx.SaveChanges();
+            }
         }
         //Delete
         public void EmployeeDeleteById(string id)
