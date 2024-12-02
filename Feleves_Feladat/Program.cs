@@ -397,6 +397,17 @@ namespace Feleves_Feladat
                 case "23":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var man23 = repo.ReadAllManager()
+                    .FirstOrDefault(m => repo.ReadAllDepartment().Any(d => d.HeadOfDepartment == m.Name));
+                    if (man23 != null)
+                    {
+                        Console.WriteLine($"Van olyan vezető, aki egyben részlegvezető is: {man23.Name}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs ilyen vezető.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "24":
                     //lekérdezés megvalósítása
