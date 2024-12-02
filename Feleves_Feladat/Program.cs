@@ -238,44 +238,61 @@ namespace Feleves_Feladat
                     return true;
                 case "13":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     var emp13 = repo.ReadAllEmployee()
                     .Where(e => e.Departments.Any(d => d.HeadOfDepartment.StartsWith("Dr")))
                     .ToList();
-                    Console.WriteLine($"Doktori címmel rendelkező vezetői alá tartozó alkalmazottak száma: {employees.Count}");
+                    Console.WriteLine($"Doktori címmel rendelkező vezetői alá tartozó alkalmazottak száma: {emp13.Count}");
                     Console.ReadKey();
                     return true;
                 case "14":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    var avg = repo.ReadAllEmployee().Average(e => e.Salary);
+                    var felett = repo.ReadAllEmployee().Count(e => e.Salary > avg);
+                    var alatt = repo.ReadAllEmployee().Count(e => e.Salary < avg);
+                    Console.WriteLine($"Átlagfizetés felett: {felett}, alatt: {alatt}");
+                    Console.ReadKey();
                     return true;
                 case "15":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "16":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "17":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "18":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "19":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "20":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "21":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "22":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "23":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "24":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     return true;
                 case "0":
                     return false;
