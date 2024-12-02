@@ -112,11 +112,11 @@ namespace Feleves_Feladat
                 case "2":
                     //lekérdezés megvalósítása
                     Console.Clear();
-                    var manager = repo.ReadAllEmployee()
+                    var man2 = repo.ReadAllEmployee()
                         .FirstOrDefault(m => repo.ReadAllDepartment().Any(d => d.HeadOfDepartment == m.Name));
-                    if (manager != null)
+                    if (man2 != null)
                     {
-                        Console.WriteLine($"Van olyan vezető, aki egyben részlegvezető is: {manager.Name}");
+                        Console.WriteLine($"Van olyan vezető, aki egyben részlegvezető is: {man2.Name}");
                     }
                     else
                     {
@@ -144,7 +144,25 @@ namespace Feleves_Feladat
                 case "4":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var man4 = repo.ReadAllManager()
+                    .Select(m => new
+                    {
+                        Manager = m,
+                        WorkLifeRatio = (DateTime.Now - m.StartOfEmployment) / (DateTime.Now.Year - m.BirthYear)
+                    })
+                    .OrderByDescending(x => x.WorkLifeRatio)
+                    .FirstOrDefault();
 
+                    if (man4 != null)
+                    {
+                        Console.WriteLine($"A legtöbbet dolgozó vezető az élt éveihez képest: {man4.Manager.Name} " +
+                                          $"({man4.WorkLifeRatio:P2})");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincsenek vezetők az adatbázisban.");
+                    }
+                    Console.ReadKey();
                     Console.ReadKey();
                     return true;
                 case "5":
