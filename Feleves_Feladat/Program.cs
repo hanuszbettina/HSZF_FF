@@ -271,6 +271,14 @@ namespace Feleves_Feladat
                 case "16":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var mediorAvg = repo.ReadAllEmployee()
+                    .Where(e => e.Level == "Medior")
+                    .Average(e => e.Salary);
+                    var juniorMax = repo.ReadAllEmployee()
+                        .Where(e => e.Level == "Junior")
+                        .Max(e => e.Salary);
+                    Console.WriteLine($"Medior átlagfizetés: {mediorAvg:C0}, legmagasabb junior fizetés: {juniorMax:C0}");
+                    Console.ReadKey();
                     return true;
                 case "17":
                     //lekérdezés megvalósítása
