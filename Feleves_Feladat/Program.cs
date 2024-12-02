@@ -200,6 +200,7 @@ namespace Feleves_Feladat
                     return true;
                 case "9":
                     //lekérdezés megvalósítása
+                    Console.Clear();
                     var count9 = repo.ReadAllEmployee()
                     .Count(e => e.Retired && !e.Active);
                     Console.WriteLine($"Nyugdíjba ment alkalmazottak száma: {count9}");
@@ -207,6 +208,14 @@ namespace Feleves_Feladat
                     return true;
                 case "10":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    var emp10 = repo.ReadAllEmployee()
+                    .Where(e => e.Retired)
+                    .Select(e => e.Salary)
+                    .DefaultIfEmpty(0)
+                    .Average();
+                    Console.WriteLine($"Nyugdíjba ment alkalmazottak átlagos keresete (ha van ilyen, ha nincs akkor 0): {emp10:C}");
+                    Console.ReadKey();
                     return true;
                 case "11":
                     //lekérdezés megvalósítása
