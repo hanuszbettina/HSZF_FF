@@ -412,6 +412,24 @@ namespace Feleves_Feladat
                 case "24":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var emp24 = repo.ReadAllEmployee()
+                    .Where(e => e.Departments.Count == 0)
+                    .Select(e => e.Name)
+                    .Concat(repo.ReadAllManager()
+                        .Where(m => !repo.ReadAllDepartment().Any(d => d.HeadOfDepartment == m.Name))
+                        .Select(m => m.Name))
+                    .ToList();
+                    if (emp24.Any())
+                    {
+                        Console.WriteLine("Csak részlegvezetők vagy csak vezetők:");
+                        emp24.ForEach(Console.WriteLine);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs ilyen alkalmazott vagy vezető.");
+                    }
+                    Console.ReadKey();
+
                     return true;
                 case "0":
                     return false;
