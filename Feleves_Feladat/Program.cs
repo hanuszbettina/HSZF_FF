@@ -219,6 +219,13 @@ namespace Feleves_Feladat
                     return true;
                 case "11":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    var emp11 = repo.ReadAllEmployee()
+                    .OrderByDescending(e => e.Salary + e.Commission)
+                    .ToList();
+                    Console.WriteLine("Kereset alapján csökkenő sorrend:");
+                    emp11.ForEach(e => Console.WriteLine($"- {e.Name}"));
+                    Console.ReadKey();
                     return true;
                 case "12":
                     //lekérdezés megvalósítása
