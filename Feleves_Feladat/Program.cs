@@ -257,6 +257,16 @@ namespace Feleves_Feladat
                 case "15":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var levels = repo.ReadAllEmployee()
+                    .GroupBy(e => e.Level)
+                    .Select(g => new
+                    {
+                        Level = g.Key,
+                        Average = g.Average(e => e.Salary)
+                    })
+                    .ToList();
+                    levels.ForEach(l => Console.WriteLine($"{l.Level}: {l.Average:C0}"));
+                    Console.ReadKey();
                     return true;
                 case "16":
                     //lekérdezés megvalósítása
