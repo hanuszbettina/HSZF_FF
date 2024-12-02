@@ -181,6 +181,21 @@ namespace Feleves_Feladat
                     return true;
                 case "8":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    var emp8 = repo.ReadAllEmployee()
+                .Where(e => e.Retired && e.Active)
+                .Select(e => e.Name)
+                .ToList();
+                    if (emp8.Any())
+                    {
+                        Console.WriteLine("Jelenleg nyugdíjban lévő, de dolgozó alkalmazottak:");
+                        emp8.ForEach(Console.WriteLine);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs ilyen alkalmazott.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "9":
                     //lekérdezés megvalósítása
