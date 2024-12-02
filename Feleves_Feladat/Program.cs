@@ -127,13 +127,13 @@ namespace Feleves_Feladat
                 case "3":
                     //lekérdezés megvalósítása
                     Console.Clear();
-                    var man = repo.ReadAllManager()
+                    var man3 = repo.ReadAllManager()
                     .OrderBy(m => m.StartOfEmployment)
                     .FirstOrDefault();
 
-                    if (man != null)
+                    if (man3 != null)
                     {
-                        Console.WriteLine($"Legrégebb óta munkában lévő vezető: {man.Name} ({man.StartOfEmployment:yyyy-MM-dd})");
+                        Console.WriteLine($"Legrégebb óta munkában lévő vezető: {man3.Name} ({man3.StartOfEmployment:yyyy-MM-dd})");
                     }
                     else
                     {
@@ -144,6 +144,7 @@ namespace Feleves_Feladat
                 case "4":
                     //lekérdezés megvalósítása
                     Console.Clear();
+
                     Console.ReadKey();
                     return true;
                 case "5":
@@ -165,9 +166,9 @@ namespace Feleves_Feladat
                 case "6":
                     //lekérdezés megvalósítása
                     Console.Clear();
-                    var emp = repo.ReadAllEmployee()
+                    var emp6 = repo.ReadAllEmployee()
                     .Count(e => e.BirthYear >= 1980 && e.BirthYear < 1990);
-                    Console.WriteLine($"80-as években született alkalmazottak száma: {emp}");
+                    Console.WriteLine($"80-as években született alkalmazottak száma: {emp6}");
                     Console.ReadKey();
                     return true;
                 case "7":
@@ -183,9 +184,9 @@ namespace Feleves_Feladat
                     //lekérdezés megvalósítása
                     Console.Clear();
                     var emp8 = repo.ReadAllEmployee()
-                .Where(e => e.Retired && e.Active)
-                .Select(e => e.Name)
-                .ToList();
+                    .Where(e => e.Retired && e.Active)
+                    .Select(e => e.Name)
+                    .ToList();
                     if (emp8.Any())
                     {
                         Console.WriteLine("Jelenleg nyugdíjban lévő, de dolgozó alkalmazottak:");
@@ -199,6 +200,10 @@ namespace Feleves_Feladat
                     return true;
                 case "9":
                     //lekérdezés megvalósítása
+                    var count9 = repo.ReadAllEmployee()
+                    .Count(e => e.Retired && !e.Active);
+                    Console.WriteLine($"Nyugdíjba ment alkalmazottak száma: {count9}");
+                    Console.ReadKey();
                     return true;
                 case "10":
                     //lekérdezés megvalósítása
