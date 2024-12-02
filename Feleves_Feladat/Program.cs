@@ -336,7 +336,20 @@ namespace Feleves_Feladat
                 case "20":
                     //lekérdezés megvalósítása
                     Console.Clear();
-                    return true;
+                        var emp20 = repo.ReadAllEmployee()
+                        .Where(e => e.Active)
+                        .OrderBy(e => e.CompletedProjects)
+                        .FirstOrDefault();
+                        if (emp20 != null)
+                        {
+                            Console.WriteLine($"A legkevesebb projekten dolgozó aktív alkalmazott: {emp20.Name}, projektek száma: {emp20.CompletedProjects}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nincs adat megfelelő alkalmazottról.");
+                        }
+                        Console.ReadKey();
+                        return true;
                 case "21":
                     //lekérdezés megvalósítása
                     Console.Clear();
