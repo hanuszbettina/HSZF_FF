@@ -353,6 +353,19 @@ namespace Feleves_Feladat
                 case "21":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var emp21 = repo.ReadAllEmployee()
+                    .Where(e => e.Commission > e.Salary)
+                    .ToList();
+                    if (emp21.Any())
+                    {
+                        Console.WriteLine("Jutalék nagyobb, mint az alapfizetés:");
+                        emp21.ForEach(e => Console.WriteLine($"- {e.Name}"));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs ilyen alkalmazott.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "22":
                     //lekérdezés megvalósítása
