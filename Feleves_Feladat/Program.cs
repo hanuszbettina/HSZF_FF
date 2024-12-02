@@ -370,6 +370,29 @@ namespace Feleves_Feladat
                 case "22":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var emp22 = repo.ReadAllEmployee()
+                    .Select(e => new
+                    {
+                        Employee = e.Name,
+                        StartYear = e.StartYear
+                    })
+                    .Concat(repo.ReadAllManager()
+                        .Select(m => new
+                        {
+                            Employee = m.Name,
+                            StartYear = m.StartOfEmployment.Year
+                        }))
+                    .OrderBy(x => x.StartYear)
+                    .FirstOrDefault();
+                    if (emp22 != null)
+                    {
+                        Console.WriteLine($"A legrégebb óta a cégnél dolgozó személy: {emp22.Employee}, kezdési év: {emp22.StartYear}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs ilyen alkalmazott vagy vezető.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "23":
                     //lekérdezés megvalósítása
