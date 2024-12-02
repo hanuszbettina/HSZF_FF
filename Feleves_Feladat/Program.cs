@@ -143,9 +143,24 @@ namespace Feleves_Feladat
                     return true;
                 case "4":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    Console.ReadKey();
                     return true;
                 case "5":
                     //lekérdezés megvalósítása
+                    var total = repo.ReadAllManager().Count();
+                    var withMBA = repo.ReadAllManager().Count(m => m.HasMBA);
+
+                    if (total > 0)
+                    {
+                        var ratio = (double)withMBA / total * 100;
+                        Console.WriteLine($"MBA végzettséggel rendelkező vezetők aránya: {ratio:F2}%");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincsenek vezetők az adatbázisban.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "6":
                     //lekérdezés megvalósítása
