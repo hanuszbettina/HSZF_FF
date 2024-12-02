@@ -164,6 +164,10 @@ namespace Feleves_Feladat
                     return true;
                 case "6":
                     //lekérdezés megvalósítása
+                    var emp = repo.ReadAllEmployee()
+                    .Count(e => e.BirthYear >= 1980 && e.BirthYear < 1990);
+                    Console.WriteLine($"80-as években született alkalmazottak száma: {emp}");
+                    Console.ReadKey();
                     return true;
                 case "7":
                     //lekérdezés megvalósítása
