@@ -229,6 +229,12 @@ namespace Feleves_Feladat
                     return true;
                 case "12":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    var juniors = repo.ReadAllEmployee().Count(e => e.Level == "Junior");
+                    var mediors = repo.ReadAllEmployee().Count(e => e.Level == "Medior");
+                    var seniors = repo.ReadAllEmployee().Count(e => e.Level == "Senior");
+                    Console.WriteLine($"Junior: {juniors}, Medior: {mediors}, Senior: {seniors}");
+                    Console.ReadKey();
                     return true;
                 case "13":
                     //lekérdezés megvalósítása
