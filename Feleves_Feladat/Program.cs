@@ -105,28 +105,8 @@ namespace Feleves_Feladat
                 case "1":
                     //lekérdezés megvalósítása
                     Console.Clear();
-                    var employees = repo.ReadAllEmployee()
-                        .Select(e => new
-                        {
-                            Employee = e.Name,
-                            StartYear = e.StartYear
-                        })
-                        .Concat(repo.ReadAllManager()
-                            .Select(m => new
-                            {
-                                Employee = m.Name,
-                                StartYear = m.StartOfEmployment.Year
-                            }))
-                        .OrderBy(x => x.StartYear)
-                        .FirstOrDefault();
-                    if (employees != null)
-                    {
-                        Console.WriteLine($"A legrégebb óta a cégnél dolgozó személy: {employees.Employee}, kezdési év: {employees.StartYear}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Nincs ilyen alkalmazott vagy vezető.");
-                    }
+                    var count = repo.ReadAllManager().Count(m => m.Name.StartsWith("Dr"));
+                    Console.WriteLine($"Doktori címmel rendelkező vezetők száma: {count}");
                     Console.ReadKey();
                     return true;
                 case "2":
@@ -146,7 +126,20 @@ namespace Feleves_Feladat
                     return true;
                 case "3":
                     //lekérdezés megvalósítása
-                    
+                    Console.Clear();
+                    var man = repo.ReadAllManager()
+                    .OrderBy(m => m.StartOfEmployment)
+                    .FirstOrDefault();
+
+                    if (man != null)
+                    {
+                        Console.WriteLine($"Legrégebb óta munkában lévő vezető: {man.Name} ({man.StartOfEmployment:yyyy-MM-dd})");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincsenek vezetők az adatbázisban.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "4":
                     //lekérdezés megvalósítása
