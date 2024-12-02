@@ -297,6 +297,26 @@ namespace Feleves_Feladat
                 case "18":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var emp18 = repo.ReadAllEmployee()
+                   .Where(e => e.StartYear > 0) // Csak azok az alkalmazottak, akik dolgoztak a cégnél
+                   .Select(e => new
+                   {
+                       Employee = e.Name,
+                       ProjectsPerYear = (double)e.CompletedProjects / (DateTime.Now.Year - e.StartYear)
+                   })
+                   .OrderBy(x => x.ProjectsPerYear)
+                   .FirstOrDefault();
+
+                    if (emp18 != null)
+                    {
+                        Console.WriteLine($"Az alkalmazott, aki az itt töltött éveihez képest a legkevesebb projekten dolgozott: {emp18.Employee}, " +
+                                          $"projektek/év arány: {emp18.ProjectsPerYear:F2}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs adat megfelelő alkalmazottról.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "19":
                     //lekérdezés megvalósítása
