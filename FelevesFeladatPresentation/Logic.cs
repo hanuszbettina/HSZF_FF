@@ -1,4 +1,5 @@
 ﻿using Feleves_Feladat.Models;
+using FelevesFeladatInfrastructure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace FelevesFeladatPresentation
     
     public class Logic
     {
+        
         
 
     }

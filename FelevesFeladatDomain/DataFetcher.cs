@@ -23,10 +23,14 @@ namespace FelevesFeladatDomain
             }
 
             IEnumerable<Type> objectTypes = types.Where(x => x.GetCustomAttribute<ToExportAttribute>() != null);
-
+            
 
             XDocument xdoc = new XDocument();
-            xdoc.Add(new XElement("entities"));
+            // Dátum hozzáadása
+            DateTime fileCreationDate = DateTime.Now;
+            xdoc.Add(new XElement("entities",
+                new XAttribute("exportDate", fileCreationDate.ToString("yyyy.MM.dd. HH:mm:ss")) // Dátum formázása és hozzáadása attribútumként
+            ));
 
             foreach (var item in objectTypes)
             {

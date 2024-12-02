@@ -98,17 +98,44 @@ namespace Feleves_Feladat
             Console.WriteLine("\t23) Van-e olyan manager aki egyben részlegvezető is? Ha igen, ki az?");
             Console.WriteLine("\t24) Kik azok, akik vagy csak részlegvezetők, vagy csak manager-ek ?");
             Console.Write("\r\nVálasztott menüpont száma: ");
-
+            EmployeeDbContext ctx = new EmployeeDbContext();
+            Repository repo = new Repository(ctx);
             switch (Console.ReadLine())
             {
                 case "1":
                     //lekérdezés megvalósítása
+                    Console.Clear();
+                    var employees = repo.ReadAllEmployee()
+                        .Select(e => new
+                        {
+                            Employee = e.Name,
+                            StartYear = e.StartYear
+                        })
+                        .Concat(repo.ReadAllManager()
+                            .Select(m => new
+                            {
+                                Employee = m.Name,
+                                StartYear = m.StartOfEmployment.Year
+                            }))
+                        .OrderBy(x => x.StartYear)
+                        .FirstOrDefault();
+                    if (employees != null)
+                    {
+                        Console.WriteLine($"A legrégebb óta a cégnél dolgozó személy: {employees.Employee}, kezdési év: {employees.StartYear}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nincs ilyen alkalmazott vagy vezető.");
+                    }
+                    Console.ReadKey();
                     return true;
                 case "2":
                     //lekérdezés megvalósítása
+                    
                     return true;
                 case "3":
                     //lekérdezés megvalósítása
+                    
                     return true;
                 case "4":
                     //lekérdezés megvalósítása
@@ -227,7 +254,6 @@ namespace Feleves_Feladat
             Console.WriteLine("0, Visszalépés a menübe");
             VisszaLepesAFoMenube();
         }
-        //IEnumerable<Department> ReadAllDepartment()
         public static void ImportXmlToDatabase(IEnumerable<Employee> empdata, IEnumerable<Department> depdata, string xmlFilePath)
         {
             EmployeeDbContext ctx = new EmployeeDbContext();
@@ -323,21 +349,28 @@ namespace Feleves_Feladat
                         switch (OsztalyBekeres())
                         {
                             case "Employee":
+                                Console.Clear();
                                 Console.WriteLine("Employee adatok\n");
                                 repo.CreateEmployee(EmpPeldanyCreate());
+                                Console.WriteLine("Az új Employeet hozzáadtuk az adatbázishoz!");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
                                 break;
                             case "Department":
-
+                                Console.Clear();
+                                Console.WriteLine("Department adatok\n");
                                 repo.CreateDepartment(DepPeldanyCreate());
+                                Console.WriteLine("Az új Department hozzáadtuk az adatbázishoz!");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
                                 break;
                             case "Manager":
+                                Console.Clear();
+                                Console.WriteLine("Manager adatok\n");
                                 repo.CreateManager(ManPeldanyCreate());
+                                Console.WriteLine("Az új Managert hozzáadtuk az adatbázishoz!");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -355,33 +388,51 @@ namespace Feleves_Feladat
                         {
                             case "Employee":
                                 Console.Clear();
-                                Console.WriteLine(repo.ReadAllEmployee());
+                                Console.WriteLine("Az adatbázisban található Employeek: \n");
+                                var emps = repo.ReadAllEmployee();
+                                foreach (var item in emps)
+                                {
+                                    if (item.Active && item.Retired)
+                                    {
+                                        Console.WriteLine($"Azonosító: {item.Id}\nNév: {item.Name}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartYear}\nTeljesített projektek száma: {item.CompletedProjects}\nAktív-e: Aktív\nNyugdíjas-e: Nyugdíjas\nEmail: {item.Email}\nTelefonszám: {item.Phone}\nMunkakör: {item.Job}\nSzint: {item.Level}\nFizetés: {item.Salary}\nJuttatás: {item.Commission}\n");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Azonosító: {item.Id}\nNév: {item.Name}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartYear}\nTeljesített projektek száma: {item.CompletedProjects}\nAktív-e: Nem aktív\nNyugdíjas-e: Nem nyugdíjas\nEmail: {item.Email}\nTelefonszám: {item.Phone}\nMunkakör: {item.Job}\nSzint: {item.Level}\nFizetés: {item.Salary}\nJuttatás: {item.Commission}\n");
+                                    }
+                                }
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
                                 break;
                             case "Department":
                                 Console.Clear();
-                                Console.WriteLine(repo.ReadAllDepartment());
+                                Console.WriteLine("Az adatbázisban található Employeek: \n");
+                                var deps = repo.ReadAllDepartment();
+                                foreach (var item in deps)
+                                {
+                                  Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.DepartmentCode}\nVezető: {item.HeadOfDepartment}\n");
+                                    
+                                }
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
                                 break;
                             case "Manager":
                                 Console.Clear();
+                                Console.WriteLine("Az adatbázisban található Managerek: \n");
                                 var mans = repo.ReadAllManager();
                                 foreach (var item in mans)
                                 {
                                     if (item.HasMBA)
                                     {
-                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment}\nMBA: Van");
+                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment}\nMBA: Van\n");
                                     }
                                     else
                                     {
-                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment.Year}\nMBA: Nincs");
+                                        Console.WriteLine($"Név: {item.Name}\nAzonosító: {item.ManagerId}\nSzületési év: {item.BirthYear}\nKezdés éve: {item.StartOfEmployment.Year}\nMBA: Nincs\n");
                                     }
                                 }
-                                Console.WriteLine(repo.ReadAllManager());
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -402,6 +453,7 @@ namespace Feleves_Feladat
                                 Console.WriteLine("Kérem a frisíteni kívánt elem id-ját:\n");
                                 id = Console.ReadLine();
                                 repo.EmployeeUpdate(id,EmpPeldanyCreate());
+                                Console.WriteLine("\nSikeres frissítés");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -411,6 +463,7 @@ namespace Feleves_Feladat
                                 Console.WriteLine("Kérem a frisíteni kívánt elem id-ját:\n");
                                 id = Console.ReadLine();
                                 repo.DepartmentUpdate(id, DepPeldanyCreate());
+                                Console.WriteLine("\nSikeres frissítés");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -420,6 +473,7 @@ namespace Feleves_Feladat
                                 Console.WriteLine("Kérem a frisíteni kívánt elem id-ját:\n");
                                 id = Console.ReadLine();
                                 repo.ManagerUpdate(id, ManPeldanyCreate());
+                                Console.WriteLine("\nSikeres frissítés");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -440,6 +494,7 @@ namespace Feleves_Feladat
                                 Console.WriteLine("Kérem adja meg a törölni kívánt azonosítót: ");
                                 azon = Console.ReadLine();
                                 repo.EmployeeDeleteById(azon);
+                                Console.WriteLine("\nSikeres törlés");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -449,6 +504,7 @@ namespace Feleves_Feladat
                                 Console.WriteLine("Kérem adja meg a törölni kívánt azonosítót: ");
                                 azon = Console.ReadLine(); 
                                 repo.DepartmentDeleteById(azon);
+                                Console.WriteLine("\nSikeres törlés");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -458,6 +514,7 @@ namespace Feleves_Feladat
                                 Console.WriteLine("Kérem adja meg a törölni kívánt azonosítót: ");
                                 azon = Console.ReadLine();
                                 repo.ManagerDeleteById(azon);
+                                Console.WriteLine("\nSikeres törlés");
                                 Console.WriteLine("\n0, Visszalépés a menübe");
                                 VisszaLepesAFoMenube();
                                 return false;
@@ -566,7 +623,6 @@ namespace Feleves_Feladat
                 string bar = new string('█', barLength);
                 Console.WriteLine($"{name} {bar} {employee.Salary:N0} HUF");
             }
-            Console.ReadKey();
         }
         public static List<Employee> CreateEmployeeListFromXml(string filePath)
         {
