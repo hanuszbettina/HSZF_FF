@@ -283,6 +283,16 @@ namespace Feleves_Feladat
                 case "17":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var commissions = repo.ReadAllEmployee()
+                    .GroupBy(e => e.Level)
+                    .Select(g => new
+                    {
+                        Level = g.Key,
+                        TotalCommission = g.Sum(e => e.Commission)
+                    })
+                    .ToList();
+                    commissions.ForEach(c => Console.WriteLine($"{c.Level}: {c.TotalCommission:C0}"));
+                    Console.ReadKey();
                     return true;
                 case "18":
                     //lekérdezés megvalósítása
