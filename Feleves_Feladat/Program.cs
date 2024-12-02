@@ -321,6 +321,17 @@ namespace Feleves_Feladat
                 case "19":
                     //lekérdezés megvalósítása
                     Console.Clear();
+                    var emp19 = repo.ReadAllEmployee()
+                    .OrderBy(e => e.BirthYear)
+                    .Select(e => new
+                    {
+                        Employee = e.Name,
+                        Salaryy = e.Salary
+                    })
+                    .ToList();
+                    Console.WriteLine("Születési sorrend szerinti kereset:");
+                    emp19.ForEach(e => Console.WriteLine($"- {e.Employee}: {e.Salaryy:C0}"));
+                    Console.ReadKey();
                     return true;
                 case "20":
                     //lekérdezés megvalósítása
